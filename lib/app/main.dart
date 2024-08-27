@@ -26,7 +26,7 @@ class AppMain extends StatelessWidget {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: MaterialApp(
-          title: 'Starter App',
+          title: 'HMS System Flutter',
           theme: theme,
           onGenerateRoute: router.generateRoute,
           initialRoute: router.defaultRoute,
