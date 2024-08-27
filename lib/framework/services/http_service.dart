@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:f_logs/f_logs.dart';
 import 'package:get_it/get_it.dart';
-import 'package:starter_application/framework/services/http.dart';
-import 'package:starter_application/providers/auth_provider.dart';
+import 'package:hms_system_application/framework/services/http.dart';
+import 'package:hms_system_application/providers/auth_provider.dart';
 
 abstract class HttpService {
   String? get token {

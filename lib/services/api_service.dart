@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:starter_application/framework/services/http_service.dart';
+import 'package:hms_system_application/framework/services/http_service.dart';
 
 var postOptions = Options(headers: {
   'Content-Type': 'application/json',

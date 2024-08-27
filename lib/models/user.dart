@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:starter_application/utils/data_sanitiser.dart';
+import 'package:hms_system_application/utils/data_sanitiser.dart';
 
 part 'user.g.dart';
 

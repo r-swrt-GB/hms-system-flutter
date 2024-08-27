@@ -1,5 +1,5 @@
 import 'package:f_logs/model/flog/flog.dart';
-import 'package:starter_application/config/app_config.dart';
+import 'package:hms_system_application/config/app_config.dart';
 
 void initLogs(AppConfig appConfig) {
   var config = FLog.getDefaultConfigurations()
