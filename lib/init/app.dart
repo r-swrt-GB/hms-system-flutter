@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:starter_application/app/main.dart';
-import 'package:starter_application/framework/router/app_router.dart';
-import 'package:starter_application/init/router.dart';
-import 'package:starter_application/pages/splash_screen.dart';
-import 'package:starter_application/providers/auth_provider.dart';
-import 'package:starter_application/utils/environment_config.dart';
+import 'package:hms_system_application/app/main.dart';
+import 'package:hms_system_application/framework/router/app_router.dart';
+import 'package:hms_system_application/init/router.dart';
+import 'package:hms_system_application/pages/splash_screen.dart';
+import 'package:hms_system_application/providers/auth_provider.dart';
+import 'package:hms_system_application/utils/environment_config.dart';
 
 import 'config.dart';
 import 'framework.dart';

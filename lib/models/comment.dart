@@ -6,19 +6,19 @@ part 'comment.g.dart';
 @HiveType(typeId: 2)
 class Comment extends HiveObject {
   @HiveField(0)
-  int id;
+  int commentId;
 
   @HiveField(1)
   String commentText;
 
   Comment({
-    required this.id,
+    required this.commentId,
     required this.commentText,
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
-      id: int.parse(json['id']),
+      commentId: int.parse(json['id']),
       commentText: coalesceString(json['comment_text']),
     );
   }

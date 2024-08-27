@@ -1,4 +1,4 @@
-import 'package:starter_application/config/app_config.dart';
+import 'package:hms_system_application/config/app_config.dart';
 
 late AppConfig appConfig;
 

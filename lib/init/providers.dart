@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:starter_application/framework/providers/navigation_provider.dart';
-import 'package:starter_application/framework/providers/provider_registration.dart';
-import 'package:starter_application/providers/auth_provider.dart';
+import 'package:hms_system_application/framework/providers/navigation_provider.dart';
+import 'package:hms_system_application/framework/providers/provider_registration.dart';
+import 'package:hms_system_application/providers/auth_provider.dart';
 
 class InitProviders extends ProviderRegistration {
   @override
