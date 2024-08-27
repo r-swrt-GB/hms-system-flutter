@@ -1,35 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'comment.dart';
+part of 'group.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CommentAdapter extends TypeAdapter<Comment> {
+class GroupAdapter extends TypeAdapter<Group> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
-  Comment read(BinaryReader reader) {
+  Group read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Comment(
-      commentId: fields[0] as int,
-      commentText: fields[1] as String,
+    return Group(
+      groupID: fields[0] as int,
+      groupTitle: fields[1] as String,
+      assignmentID: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Comment obj) {
+  void write(BinaryWriter writer, Group obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.commentId)
+      ..write(obj.groupID)
       ..writeByte(1)
-      ..write(obj.commentText);
+      ..write(obj.groupTitle)
+      ..writeByte(2)
+      ..write(obj.assignmentID);
   }
 
   @override
@@ -38,7 +41,7 @@ class CommentAdapter extends TypeAdapter<Comment> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CommentAdapter &&
+      other is GroupAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
