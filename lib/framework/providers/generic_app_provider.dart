@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:starter_application/store/box_store.dart';
+import 'package:hms_system_application/store/box_store.dart';
 
 abstract class GenericAppProvider<T> extends ChangeNotifier {
   BoxStore get boxStore {

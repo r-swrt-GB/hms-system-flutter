@@ -1,41 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'module.dart';
+part of 'submission.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ModuleAdapter extends TypeAdapter<Module> {
+class SubmissionAdapter extends TypeAdapter<Submission> {
   @override
-  final int typeId = 6;
+  final int typeId = 8;
 
   @override
-  Module read(BinaryReader reader) {
+  Submission read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Module(
-      moduleId: fields[0] as int,
-      moduleName: fields[1] as String,
-      moduleCode: fields[2] as String,
-      moduleDescription: fields[3] as String,
+    return Submission(
+      submissionId: fields[0] as int,
+      submissionDate: fields[1] as DateTime,
+      assignmentId: fields[2] as int,
+      submissionGrade: fields[3] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Module obj) {
+  void write(BinaryWriter writer, Submission obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.moduleId)
+      ..write(obj.submissionId)
       ..writeByte(1)
-      ..write(obj.moduleName)
+      ..write(obj.submissionDate)
       ..writeByte(2)
-      ..write(obj.moduleCode)
+      ..write(obj.assignmentId)
       ..writeByte(3)
-      ..write(obj.moduleDescription);
+      ..write(obj.submissionGrade);
   }
 
   @override
@@ -44,7 +44,7 @@ class ModuleAdapter extends TypeAdapter<Module> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ModuleAdapter &&
+      other is SubmissionAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

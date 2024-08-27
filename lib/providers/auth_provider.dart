@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:starter_application/models/user.dart';
-import 'package:starter_application/providers/app/app_provider.dart';
+import 'package:hms_system_application/models/user.dart';
+import 'package:hms_system_application/providers/app/app_provider.dart';
 
 class AuthProvider extends AppProvider<AuthProvider> {
   bool get isLoggedIn {

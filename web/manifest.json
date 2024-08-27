@@ -1,6 +1,6 @@
 {
-    "name": "starter_application",
-    "short_name": "starter_application",
+    "name": "hms_system_application",
+    "short_name": "hms_system_application",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

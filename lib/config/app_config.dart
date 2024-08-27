@@ -1,4 +1,4 @@
-import 'package:starter_application/framework/config/generic_app_config.dart';
+import 'package:hms_system_application/framework/config/generic_app_config.dart';
 
 class AppConfig extends GenericAppConfig {
   String pushApiKey;

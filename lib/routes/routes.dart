@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:starter_application/framework/router/app_router.dart';
-import 'package:starter_application/pages/home_screen.dart';
-import 'package:starter_application/providers/auth_provider.dart';
+import 'package:hms_system_application/framework/router/app_router.dart';
+import 'package:hms_system_application/pages/home_screen.dart';
+import 'package:hms_system_application/providers/auth_provider.dart';
 
 registerRoutes(AppRouter router) {
   var authProvider = GetIt.I.get<AuthProvider>();

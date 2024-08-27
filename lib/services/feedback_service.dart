@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starter_application/widgets/outlined_text_input.dart';
+import 'package:hms_system_application/widgets/outlined_text_input.dart';
 
 Future<String?> showBasicInputDialog(
     context, String title, String message) async {

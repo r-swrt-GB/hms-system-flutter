@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:starter_application/framework/providers/generic_app_provider.dart';
-import 'package:starter_application/services/api_service.dart';
+import 'package:hms_system_application/framework/providers/generic_app_provider.dart';
+import 'package:hms_system_application/services/api_service.dart';
 
 import '../../framework/providers/navigation_provider.dart';
 

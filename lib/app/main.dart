@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hms_system_application/framework/providers/navigation_provider.dart';
+import 'package:hms_system_application/framework/router/app_router.dart';
+import 'package:hms_system_application/theme/theme.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_application/framework/providers/navigation_provider.dart';
-import 'package:starter_application/framework/router/app_router.dart';
-import 'package:starter_application/theme/theme.dart';
 
 class AppMain extends StatelessWidget {
   final AppRouter router;
