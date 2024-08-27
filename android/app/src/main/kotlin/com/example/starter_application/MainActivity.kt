@@ -1,4 +1,4 @@
-package com.example.hms_system_flutter
+package com.example.starter_application
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,0 +1,101 @@
+import 'package:dio/dio.dart';
+import 'package:starter_application/framework/services/http_service.dart';
+
+var postOptions = Options(headers: {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+});
+
+class ApiService extends HttpService {
+  Future<Response> performLogin(String email, String password) async {
+    return await httpPost(
+      '/auth/login',
+      data: {
+        'email': email,
+        'password': password,
+      },
+      options: postOptions,
+    );
+  }
+
+  Future<Response> performRegistration(String email, String password) async {
+    return await httpPost(
+      '/auth/register',
+      data: {
+        'email': email,
+        'password': password,
+      },
+      options: postOptions,
+    );
+  }
+
+  Future<Response> refreshUser() async {
+    return await httpGet('/user');
+  }
+
+  Future<Response> deleteUser(
+      int userId, String email, String userToken) async {
+    return await httpDelete(
+      '/auth/user/$userId/delete-account',
+      data: {
+        'email': email,
+      },
+      options: Options(headers: {
+        'Authorization': 'Bearer $userToken',
+        'Accept': 'application/json',
+      }),
+    );
+  }
+
+// Post Request example
+
+  /* Future<Response> performLogin(String email, String password) async {
+    return await httpPost(
+      '/auth/login',
+      data: {
+        'email': email,
+        'password': password,
+      },
+      options: postOptions,
+    );
+  } */
+
+// Delete Request example
+
+  /* Future<Response> deleteUser(
+      int userId, String email, String userToken) async {
+    return await httpDelete(
+      '/auth/user/$userId/delete-account',
+      data: {
+        'email': email,
+      },
+      options: Options(headers: {
+        'Authorization': 'Bearer $userToken',
+        'Accept': 'application/json',
+      }),
+    );
+  } */
+
+// Get Request Example
+
+  /* Future<Response> getOrderDetail(int orderId) async {
+    return await httpGet('/orders/$orderId');
+  }  */
+
+// Patch Request Example
+
+/*  Future<dynamic> updateOrder(int orderId, Map<String, dynamic> data) async {
+    try {
+      print("Order id: $orderId");
+      print("Order data: $data");
+      Response response = await httpPatch('/orders/$orderId', data: data);
+      print("Response data:${response.data}");
+      return response;
+    } catch (e, stackTrace) {
+      print("Error occurred: $e");
+      print("Stack trace: $stackTrace");
+      // Handle the error here if necessary
+      return null; // or throw the error again
+    }
+  }  */
+}

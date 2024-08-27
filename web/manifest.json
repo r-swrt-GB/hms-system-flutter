@@ -1,6 +1,6 @@
 {
-    "name": "hms_system_flutter",
-    "short_name": "hms_system_flutter",
+    "name": "starter_application",
+    "short_name": "starter_application",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

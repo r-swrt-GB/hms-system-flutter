@@ -1,0 +1,4 @@
+
+registerAdapters() {
+  // Hive.registerAdapter(ExampleAdapter());
+}
