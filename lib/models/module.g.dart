@@ -6,17 +6,17 @@ part of 'module.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class moduleAdapter extends TypeAdapter<module> {
+class ModuleAdapter extends TypeAdapter<Module> {
   @override
   final int typeId = 6;
 
   @override
-  module read(BinaryReader reader) {
+  Module read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return module(
+    return Module(
       moduleId: fields[0] as int,
       module_name: fields[1] as String,
       module_code: fields[2] as String,
@@ -25,7 +25,7 @@ class moduleAdapter extends TypeAdapter<module> {
   }
 
   @override
-  void write(BinaryWriter writer, module obj) {
+  void write(BinaryWriter writer, Module obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -44,7 +44,7 @@ class moduleAdapter extends TypeAdapter<module> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is moduleAdapter &&
+      other is ModuleAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

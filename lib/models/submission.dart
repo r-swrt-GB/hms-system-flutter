@@ -3,7 +3,7 @@ import 'package:hms_system_application/utils/data_sanitiser.dart';
 
 part 'submission.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 8)
 class Submission extends HiveObject {
   @HiveField(0)
   int submissionId;

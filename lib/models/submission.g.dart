@@ -8,7 +8,7 @@ part of 'submission.dart';
 
 class SubmissionAdapter extends TypeAdapter<Submission> {
   @override
-  final int typeId = 1;
+  final int typeId = 8;
 
   @override
   Submission read(BinaryReader reader) {
