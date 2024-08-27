@@ -6,25 +6,30 @@ part 'user.g.dart';
 @HiveType(typeId: 1)
 class User extends HiveObject {
   @HiveField(0)
-  String name;
-
-  @HiveField(1)
-  String? email;
-
-  @HiveField(2)
   int userId;
 
+  @HiveField(1)
+  String firstName;
+
+  @HiveField(2)
+  String lastName;
+
+  @HiveField(3)
+  String email;
+
   User({
-    required this.name,
-    required this.email,
     required this.userId,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      name: coalesceString(json['name']),
+      userId: int.parse(json['id']),
+      firstName: coalesceString(json['first_name']),
+      lastName: coalesceString(json['last_name']),
       email: coalesceString(json['email']),
-      userId: int.parse(json['userid'].toString()),
     );
   }
 
