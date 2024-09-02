@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -44,6 +46,7 @@ class Framework {
     BoxStore store = BoxStore();
     await store.openBox<String?>('auth_token');
     await store.openBox<User>('user');
+    await store.openBox<File>('file');
     // await store.openBox('general');
 
     GetIt.I.registerSingleton<BoxStore>(store);
