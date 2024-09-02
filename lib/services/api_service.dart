@@ -9,7 +9,7 @@ var postOptions = Options(headers: {
 class ApiService extends HttpService {
   Future<Response> performLogin(String email, String password) async {
     return await httpPost(
-      '/auth/login',
+      '/api_v1/login',
       data: {
         'email': email,
         'password': password,
@@ -18,34 +18,33 @@ class ApiService extends HttpService {
     );
   }
 
-  Future<Response> performRegistration(String email, String password) async {
+  Future<Response> performRegistration(
+      String firstName, String lastName, String email, String password) async {
     return await httpPost(
-      '/auth/register',
+      '/api_v1/register',
       data: {
+        'first_name': firstName,
+        'last_name': lastName,
         'email': email,
         'password': password,
+        'password_confirmation': password,
       },
       options: postOptions,
     );
   }
 
-  Future<Response> refreshUser() async {
-    return await httpGet('/user');
-  }
-
-  Future<Response> deleteUser(
-      int userId, String email, String userToken) async {
-    return await httpDelete(
-      '/auth/user/$userId/delete-account',
+  Future<Response> createSubmission(
+      int moduleId, int assignmentId, List files) async {
+    return await httpPost(
+      '/api_v1/modules/$moduleId/assignments/$assignmentId/submissions/create',
       data: {
-        'email': email,
+        'submission_date': DateTime.now(),
+        'files': files,
       },
-      options: Options(headers: {
-        'Authorization': 'Bearer $userToken',
-        'Accept': 'application/json',
-      }),
+      options: postOptions,
     );
   }
+}
 
 // Post Request example
 
@@ -98,4 +97,37 @@ class ApiService extends HttpService {
       return null; // or throw the error again
     }
   }  */
-}
+
+
+
+
+
+
+  /*
+    Future<Response> performRegistration(String email, String password) async {
+    return await httpPost(
+      '/auth/register',
+      data: {
+        'email': email,
+        'password': password,
+      },
+      options: postOptions,
+    );
+  }
+
+  Future<Response> refreshUser() async {
+    return await httpGet('/user');
+  }
+
+  Future<Response> deleteUser(
+      int userId, String email, String userToken) async {
+    return await httpDelete(
+      '/auth/user/$userId/delete-account',
+      data: {
+        'email': email,
+      },
+      options: Options(headers: {
+        'Authorization': 'Bearer $userToken',
+        'Accept': 'application/json',
+      }),
+    );*/
