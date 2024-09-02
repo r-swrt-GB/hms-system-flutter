@@ -62,6 +62,27 @@ class ApiService extends HttpService {
       }),
     );
   }
+
+  Future<Response> getModules() async {
+    return await httpGet(
+      '/api_v1/modules/',
+      options: postOptions,
+    );
+  }  
+
+  Future<Response> getModuleAssignments(int moduleId) async {
+    return await httpGet(
+      '/api_v1/modules/$moduleId/assignments/',
+      options: postOptions,
+    );
+  }  
+
+  Future<Response> getModuleSubmissions(int moduleId, int assignmentId) async {
+    return await httpGet(
+      '/api_v1/modules/$moduleId/assignments/$assignmentId/submissions/',
+      options: postOptions,
+    );
+  }  
 }
 
 // Post Request example
