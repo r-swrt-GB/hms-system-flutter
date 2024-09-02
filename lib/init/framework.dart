@@ -54,6 +54,7 @@ class Framework {
     await store.openBox<Comment>('commentBox');
     await store.openBox<Group>('groupBox');
     await store.openBox<Module>('moduleBox');
+    await store.openBox<Notification>('notificationBox');
     // await store.openBox('general');
 
     GetIt.I.registerSingleton<BoxStore>(store);
