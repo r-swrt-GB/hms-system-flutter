@@ -2,9 +2,9 @@ import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'package:hms_system_application/models/assignment.dart';
+import 'package:hms_system_application/models/comment.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:hms_system_application/models/user.dart';
-
 import 'package:provider/provider.dart';
 import 'package:hms_system_application/config/app_config.dart';
 import 'package:hms_system_application/framework/services/http.dart';
@@ -43,8 +43,8 @@ class Framework {
   Future<BoxStore> _openBoxes(List boxNames) async {
     BoxStore store = BoxStore();
     await store.openBox<String?>('auth_token');
-    await store.openBox<User>('user');
-    // await store.openBox('general');
+    await store.openBox<Assignment>('assignmentBox');
+    await store.openBox<Comment>('commentBox');
 
     GetIt.I.registerSingleton<BoxStore>(store);
 
