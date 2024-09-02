@@ -8,7 +8,7 @@ class SubmissionProvider with ChangeNotifier {
   final String boxName = "submissionBox";
   late List<Submission> _submission;
 
-  List<Submission> get users => _submission;
+  List<Submission> get submissions => _submission;
 
   Future<Box<Submission>> getSubmissionBox() async {
     if (Hive.isBoxOpen(boxName)) {
@@ -23,7 +23,7 @@ class SubmissionProvider with ChangeNotifier {
     return box.getAt(0);
   }
 
-  Future<bool> storeCandidateDetails(Submission? submission) async {
+  Future<bool> storeSubmissionDetails(Submission? submission) async {
     try {
       final box = await getSubmissionBox();
 

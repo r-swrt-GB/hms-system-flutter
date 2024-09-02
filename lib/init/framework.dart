@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/assignment.dart';
 import 'package:hms_system_application/models/comment.dart';
+import 'package:hms_system_application/models/submission.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:hms_system_application/config/app_config.dart';
@@ -45,6 +46,7 @@ class Framework {
     await store.openBox<String?>('auth_token');
     await store.openBox<Assignment>('assignmentBox');
     await store.openBox<Comment>('commentBox');
+    await store.openBox<Submission>('submissionBox');
 
     GetIt.I.registerSingleton<BoxStore>(store);
 
