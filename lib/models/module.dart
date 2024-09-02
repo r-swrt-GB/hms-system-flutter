@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:starter_application/utils/data_sanitiser.dart';
+import 'package:hms_system_application/utils/data_sanitiser.dart';
 
 part 'module.g.dart';
 
@@ -9,27 +9,27 @@ class Module extends HiveObject {
   int moduleId;
 
   @HiveField(1)
-  String module_name;
+  String moduleName;
 
   @HiveField(2)
-  String module_code;
+  String moduleCode;
 
   @HiveField(3)
-  String module_description;
+  String moduleDescription;
 
   Module({
     required this.moduleId,
-    required this.module_name,
-    required this.module_code,
-    required this.module_description,
+    required this.moduleName,
+    required this.moduleCode,
+    required this.moduleDescription,
   });
 
   factory Module.fromJson(Map<String, dynamic> json) {
     return Module(
       moduleId: int.parse(json['id']),
-      module_name: coalesceString(json['module_name']),
-      module_code: coalesceString(json['code']),
-      module_description: coalesceString(json['description']),
+      moduleName: coalesceString(json['module_name']),
+      moduleCode: coalesceString(json['code']),
+      moduleDescription: coalesceString(json['description']),
     );
   }
 

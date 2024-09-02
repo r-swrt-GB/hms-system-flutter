@@ -1,41 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'module.dart';
+part of 'notification.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ModuleAdapter extends TypeAdapter<Module> {
+class NotificationAdapter extends TypeAdapter<Notification> {
   @override
   final int typeId = 6;
 
   @override
-  Module read(BinaryReader reader) {
+  Notification read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Module(
-      moduleId: fields[0] as int,
-      moduleName: fields[1] as String,
-      moduleCode: fields[2] as String,
-      moduleDescription: fields[3] as String,
+    return Notification(
+      notificationId: fields[0] as int,
+      userId: fields[1] as int,
+      moduleId: fields[2] as int,
+      notificationTitle: fields[3] as String,
+      notificationType: fields[4] as String,
+      notificationMessage: fields[5] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Module obj) {
+  void write(BinaryWriter writer, Notification obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.moduleId)
+      ..write(obj.notificationId)
       ..writeByte(1)
-      ..write(obj.moduleName)
+      ..write(obj.userId)
       ..writeByte(2)
-      ..write(obj.moduleCode)
+      ..write(obj.moduleId)
       ..writeByte(3)
-      ..write(obj.moduleDescription);
+      ..write(obj.notificationTitle)
+      ..writeByte(4)
+      ..write(obj.notificationType)
+      ..writeByte(5)
+      ..write(obj.notificationMessage);
   }
 
   @override
@@ -44,7 +50,7 @@ class ModuleAdapter extends TypeAdapter<Module> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ModuleAdapter &&
+      other is NotificationAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
