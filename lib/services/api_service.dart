@@ -44,6 +44,24 @@ class ApiService extends HttpService {
       options: postOptions,
     );
   }
+
+  Future<Response> refreshUser() async {
+    return await httpGet('/user');
+  }
+
+  Future<Response> deleteUser(
+      int userId, String email, String userToken) async {
+    return await httpDelete(
+      '/auth/user/$userId/delete-account',
+      data: {
+        'email': email,
+      },
+      options: Options(headers: {
+        'Authorization': 'Bearer $userToken',
+        'Accept': 'application/json',
+      }),
+    );
+  }
 }
 
 // Post Request example
