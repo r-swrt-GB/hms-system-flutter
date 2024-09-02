@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/assignment.dart';
 import 'package:hms_system_application/models/comment.dart';
+import 'package:hms_system_application/models/group.dart';
+import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/models/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +52,8 @@ class Framework {
     await store.openBox<File>('file');
     await store.openBox<Assignment>('assignmentBox');
     await store.openBox<Comment>('commentBox');
+    await store.openBox<Group>('groupBox');
+    await store.openBox<Module>('moduleBox');
     // await store.openBox('general');
 
     GetIt.I.registerSingleton<BoxStore>(store);
