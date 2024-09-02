@@ -3,7 +3,7 @@ import 'package:hms_system_application/utils/data_sanitiser.dart';
 
 part 'notification.g.dart';
 
-@HiveType(typeId: 6)
+@HiveType(typeId: 7)
 class Notification extends HiveObject {
   @HiveField(0)
   int notificationId;
