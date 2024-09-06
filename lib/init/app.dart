@@ -11,7 +11,7 @@ import 'config.dart';
 import 'framework.dart';
 import 'logs.dart';
 
-void initApp({String envFile = '.env.dev'}) async {
+void initApp({String envFile = '.env'}) async {
   WidgetsFlutterBinding.ensureInitialized;
 
   runApp(const SplashScreen());

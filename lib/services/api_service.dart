@@ -9,7 +9,7 @@ var postOptions = Options(headers: {
 class ApiService extends HttpService {
   Future<Response> performLogin(String email, String password) async {
     return await httpPost(
-      '/api_v1/login',
+      '/api/v1/login',
       data: {
         'email': email,
         'password': password,
@@ -46,7 +46,7 @@ class ApiService extends HttpService {
   }
 
   Future<Response> refreshUser() async {
-    return await httpGet('/profile');
+    return await httpGet('/profile', options: postOptions);
   }
 
   Future<Response> deleteUser(
