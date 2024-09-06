@@ -98,6 +98,13 @@ class ApiService extends HttpService {
       options: postOptions,
     );
   }
+
+  Future<Response> getAssignment() async {
+    return await httpGet(
+      '/api_v1/assignments/',
+      options: postOptions,
+    );
+  }
 }
 
 // Post Request example
