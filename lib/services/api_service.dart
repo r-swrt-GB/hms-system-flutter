@@ -99,9 +99,9 @@ class ApiService extends HttpService {
     );
   }
 
-  Future<Response> getGroups() async {
+  Future<Response> getAssignment() async {
     return await httpGet(
-      '/api_v1/groups',
+      '/api_v1/assignments/',
       options: postOptions,
     );
   }
