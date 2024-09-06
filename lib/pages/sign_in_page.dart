@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/models/user.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 import 'package:hms_system_application/providers/user_provider.dart';
