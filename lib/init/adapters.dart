@@ -12,7 +12,6 @@ registerAdapters() {
   Hive.registerAdapter(AssignmentAdapter());
   Hive.registerAdapter(CommentAdapter());
   Hive.registerAdapter(FileAdapter());
-  Hive.registerAdapter(AssignmentAdapter());
   Hive.registerAdapter(GroupAdapter());
   Hive.registerAdapter(ModuleAdapter());
   Hive.registerAdapter(NotificationAdapter());

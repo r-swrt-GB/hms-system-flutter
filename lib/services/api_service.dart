@@ -46,7 +46,7 @@ class ApiService extends HttpService {
   }
 
   Future<Response> refreshUser() async {
-    return await httpGet('/user');
+    return await httpGet('/profile');
   }
 
   Future<Response> deleteUser(

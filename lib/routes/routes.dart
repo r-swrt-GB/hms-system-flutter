@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/pages/home_screen.dart';
+import 'package:hms_system_application/pages/sign_in_page.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 
 registerRoutes(AppRouter router) {
@@ -17,6 +18,14 @@ registerRoutes(AppRouter router) {
     '/',
     (args) {
       return const HomePage();
+    },
+    routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/login',
+    (args) {
+      return SignInPage();
     },
     // routeGuard: authGuard,
   );
