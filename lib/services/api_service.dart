@@ -98,6 +98,13 @@ class ApiService extends HttpService {
       options: postOptions,
     );
   }
+
+  Future<Response> getGroups() async {
+    return await httpGet(
+      '/api_v1/groups',
+      options: postOptions,
+    );
+  }
 }
 
 // Post Request example
