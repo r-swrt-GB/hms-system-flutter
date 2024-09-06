@@ -43,10 +43,11 @@ class AuthProvider extends AppProvider<AuthProvider> {
     }
   }
 
-  Future register(String email, String password) async {
+  Future register(
+      String firstName, String lastName, String email, String password) async {
     try {
       startLoading();
-      await api.performRegistration(email, password);
+      await api.performRegistration(firstName, lastName, email, password);
       var loginResponse = await api.performLogin(email, password);
       token = loginResponse.data['access_token'];
       await refreshUser();
