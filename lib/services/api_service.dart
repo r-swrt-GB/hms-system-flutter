@@ -8,14 +8,16 @@ var postOptions = Options(headers: {
 
 class ApiService extends HttpService {
   Future<Response> performLogin(String email, String password) async {
-    return await httpPost(
+    Response response = await httpPost(
       '/api/v1/login',
-      data: {
+      queryParameters: {
         'email': email,
         'password': password,
       },
       options: postOptions,
     );
+
+    return response;
   }
 
   Future<Response> performRegistration(

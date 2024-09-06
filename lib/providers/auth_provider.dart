@@ -34,7 +34,6 @@ class AuthProvider extends AppProvider<AuthProvider> {
       startLoading();
       var response = await api.performLogin(email, password);
       token = response.data['access_token'];
-      await refreshUser();
     } catch (ex) {
       rethrow;
     } finally {
