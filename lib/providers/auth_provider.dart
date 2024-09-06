@@ -33,8 +33,8 @@ class AuthProvider extends AppProvider<AuthProvider> {
     try {
       startLoading();
       var response = await api.performLogin(email, password);
-      token = response.data['access_token'];
-      await refreshUser();
+      token = response.data['token'];
+      await setUserProfile(response.data['user']);
     } catch (ex) {
       rethrow;
     } finally {
@@ -64,6 +64,18 @@ class AuthProvider extends AppProvider<AuthProvider> {
       startLoading();
       var userResponse = await api.refreshUser();
       user = User.fromJson(userResponse.data);
+    } catch (ex) {
+      rethrow;
+    } finally {
+      stopLoading();
+      notifyListeners();
+    }
+  }
+
+  Future setUserProfile(profileData) async {
+    try {
+      startLoading();
+     user = User.fromJson(profileData);
     } catch (ex) {
       rethrow;
     } finally {

@@ -26,7 +26,7 @@ class User extends HiveObject {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      userId: int.parse(json['id']),
+      userId: json['id'],
       firstName: coalesceString(json['first_name']),
       lastName: coalesceString(json['last_name']),
       email: coalesceString(json['email']),
