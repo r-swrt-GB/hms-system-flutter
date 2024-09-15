@@ -17,38 +17,36 @@ final ThemeData appTheme = ThemeData(
   dialogBackgroundColor: const Color(0xffffffff),
   indicatorColor: const Color(0xff678898),
   hintColor: const Color(0x8a000000),
-  buttonTheme: const ButtonThemeData(
-    textTheme: ButtonTextTheme.normal,
-    minWidth: 88,
-    height: 36,
-    padding: EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16),
-    shape: RoundedRectangleBorder(
-      side: BorderSide(
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      textStyle: TextStyle(
         color: Color(0xff000000),
-        width: 0,
-        style: BorderStyle.none,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(2.0)),
-    ),
-    alignedDropdown: false,
-    buttonColor: Color(0xffe0e0e0),
-    disabledColor: Color(0x61000000),
-    highlightColor: Color(0x29000000),
-    splashColor: Color(0x1f000000),
-    focusColor: Color(0x1f000000),
-    hoverColor: Color(0x0a000000),
-    colorScheme: ColorScheme(
-      primary: Color(0xff263238),
-      secondary: Color(0xff678898),
-      surface: Color(0xffffffff),
-      background: Color(0xffc2cfd6),
-      error: Color(0xffd32f2f),
-      onPrimary: Color(0xffffffff),
-      onSecondary: Color(0xffffffff),
-      onSurface: Color(0xff000000),
-      onBackground: Color(0xffffffff),
-      onError: Color(0xffffffff),
-      brightness: Brightness.light,
+      minimumSize: Size(88, 36), // minWidth and height
+      padding:
+          EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16), // padding
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30.0)), // shape
+      ),
+      // primary: Color(0xffe0e0e0), // buttonColor (background)
+      // onSurface: Color(0xff000000), // disabledColor
+      splashFactory: InkRipple.splashFactory, // splash effect
+      elevation: 0, // Default elevation
+      shadowColor:
+          Color(0x29000000), // highlightColor and splashColor equivalent
+      foregroundColor: Color(0xff263238), // text color (onPrimary)
+      // overlayColor: MaterialStateProperty.resolveWith<Color?>(
+      //   (Set<MaterialState> states) {
+      //     if (states.contains(MaterialState.focused)) {
+      //       return Color(0x1f000000); // focusColor
+      //     } else if (states.contains(MaterialState.hovered)) {
+      //       return Color(0x0a000000); // hoverColor
+      //     } else if (states.contains(MaterialState.pressed)) {
+      //       return Color(0x29000000); // highlightColor
+      //     }
+      //     return null; // default
+      //   },
+      // ),
     ),
   ),
   inputDecorationTheme: const InputDecorationTheme(
@@ -224,31 +222,56 @@ final ThemeData appTheme = ThemeData(
     cursorColor: Color(0xff4285f4),
     selectionColor: Color(0xffc2cfd6),
     selectionHandleColor: Color(0xffa4b7c1),
-  ), checkboxTheme: CheckboxThemeData(
- fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff526d7a); }
- return null;
- }),
- ), radioTheme: RadioThemeData(
- fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff526d7a); }
- return null;
- }),
- ), switchTheme: SwitchThemeData(
- thumbColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff526d7a); }
- return null;
- }),
- trackColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff526d7a); }
- return null;
- }),
- ), bottomAppBarTheme: BottomAppBarTheme(color: const Color(0xffffffff)), colorScheme: ColorScheme.fromSwatch(
-      primarySwatch: const MaterialColor(4280693304, {
+  ),
+  checkboxTheme: CheckboxThemeData(
+    fillColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return const Color(0xff526d7a);
+      }
+      return null;
+    }),
+  ),
+  radioTheme: RadioThemeData(
+    fillColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return const Color(0xff526d7a);
+      }
+      return null;
+    }),
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return const Color(0xff526d7a);
+      }
+      return null;
+    }),
+    trackColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return const Color(0xff526d7a);
+      }
+      return null;
+    }),
+  ),
+  bottomAppBarTheme: BottomAppBarTheme(color: const Color(0xffffffff)),
+  colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: const MaterialColor(4280693304, {
     50: Color(0xfff0f3f5),
     100: Color(0xffe1e7ea),
     200: Color(0xffc2cfd6),
@@ -259,5 +282,8 @@ final ThemeData appTheme = ThemeData(
     700: Color(0xff3e515b),
     800: Color(0xff29363d),
     900: Color(0xff151b1e)
-  })).copyWith(secondary: const Color(0xff678898)).copyWith(background: const Color(0xffc2cfd6)).copyWith(error: const Color(0xffd32f2f)),
+  }))
+      .copyWith(secondary: const Color(0xff678898))
+      .copyWith(background: const Color(0xffc2cfd6))
+      .copyWith(error: const Color(0xffd32f2f)),
 );
