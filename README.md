@@ -44,8 +44,8 @@ Additionally, you'll need:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-repo/hms-system-mobile.git
-   cd hms-system-mobile
+   git clone https://github.com/r-swrt-GB/hms-system-flutter.git
+   cd hms-system-flutter
    ```
 
 2. Install Flutter dependencies:
