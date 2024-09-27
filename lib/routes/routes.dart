@@ -31,6 +31,38 @@ registerRoutes(AppRouter router) {
     // routeGuard: authGuard,
   );
 
+  router.materialRoute(
+    '/assignments',
+    (args) {
+      return const AssignmentsPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/assignment-details',
+    (args) {
+      return const AssignmentDetailsPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/submission',
+    (args) {
+      return const SubmissionPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/settings',
+    (args) {
+      return const SettingsPage();
+    },
+    // routeGuard: authGuard,
+  );
+
   /*router.materialRoute(
     '/',
     (args) {
