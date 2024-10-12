@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/pages/Settings_page.dart';
 import 'package:hms_system_application/pages/home_screen.dart';
+import 'package:hms_system_application/pages/notifications_page.dart';
 import 'package:hms_system_application/pages/sign_in_page.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 
@@ -26,7 +27,39 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/login',
     (args) {
-      return SignInPage();
+      return const NotificationsPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/assignments',
+    (args) {
+      return const AssignmentsPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/assignment-details',
+    (args) {
+      return const AssignmentDetailsPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/submission',
+    (args) {
+      return const SubmissionPage();
+    },
+    // routeGuard: authGuard,
+  );
+
+  router.materialRoute(
+    '/settings',
+    (args) {
+      return const SettingsPage();
     },
     // routeGuard: authGuard,
   );
