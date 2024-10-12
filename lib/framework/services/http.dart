@@ -67,7 +67,7 @@ class Http {
   _requestInterceptor(RequestOptions options) {
     options.headers['Accept'] = 'application/json';
     if (authToken != null && authToken != '') {
-      options.headers['Authorization'] = 'Bearer ' + (authToken ?? '');
+      options.headers['Authorization'] = 'Bearer ${authToken ?? ''}';
     }
 
     return options;

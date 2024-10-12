@@ -17,8 +17,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
     submissionId: 1,
     submissionDate: DateTime.now(),
     assignmentId: 1,
-    submissionGrade: null,
-    files: [],
+    submissionGrade: 100,
   );
   List files = [
     'https://media.gq.com/photos/59a9a273dc3ba42b1cdca2e9/16:9/w_2560%2Cc_limit/2017-09_GQ-FITNESS-Stretching_3x2.jpg',

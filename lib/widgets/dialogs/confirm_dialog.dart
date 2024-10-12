@@ -23,8 +23,8 @@ class ConfirmDialog extends StatelessWidget {
   final String dialogBody;
   final Function() onConfirmPressed;
 
-  ConfirmDialog(
-      {required this.dialogTitle,
+  const ConfirmDialog(
+      {super.key, required this.dialogTitle,
       required this.dialogBody,
       required this.onConfirmPressed});
 
@@ -34,11 +34,11 @@ class ConfirmDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      title: Text(this.dialogTitle),
+      title: Text(dialogTitle),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(this.dialogBody),
+            Text(dialogBody),
           ],
         ),
       ),
