@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
-import 'package:hms_system_application/pages/home_screen.dart';
+import 'package:hms_system_application/pages/Settings_page.dart';
 import 'package:hms_system_application/pages/notifications_page.dart';
 import 'package:hms_system_application/pages/sign_in_page.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
@@ -18,7 +18,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/',
     (args) {
-      return const HomePage();
+      return const SettingsPage();
     },
     routeGuard: authGuard,
   );
@@ -26,7 +26,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/login',
     (args) {
-      return const NotificationsPage();
+      return const SignInPage();
     },
     // routeGuard: authGuard,
   );
@@ -34,7 +34,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/assignments',
     (args) {
-      return const AssignmentsPage();
+      // return const AssignmentsPage();
     },
     // routeGuard: authGuard,
   );
@@ -42,7 +42,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/assignment-details',
     (args) {
-      return const AssignmentDetailsPage();
+      // return const AssignmentDetailsPage();
     },
     // routeGuard: authGuard,
   );
@@ -50,7 +50,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/submission',
     (args) {
-      return const SubmissionPage();
+      // return const SubmissionPage();
     },
     // routeGuard: authGuard,
   );

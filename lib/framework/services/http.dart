@@ -18,7 +18,7 @@ class Http {
   Http(
     this.tokenBox, {
     required this.endPoint,
-    this.connectTimeout = 5000,
+    this.connectTimeout = 50000,
     this.receiveTimeout = 3000,
     this.authTokenBoxKey = 'token',
     required this.onAuthFailedResponse,
@@ -67,7 +67,7 @@ class Http {
   _requestInterceptor(RequestOptions options) {
     options.headers['Accept'] = 'application/json';
     if (authToken != null && authToken != '') {
-      options.headers['Authorization'] = 'Bearer ' + (authToken ?? '');
+      options.headers['Authorization'] = 'Bearer ${authToken ?? ''}';
     }
 
     return options;

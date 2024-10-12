@@ -4,7 +4,7 @@ class ErrorDialog extends StatelessWidget {
   final String dialogTitle;
   final String dialogBody;
 
-  ErrorDialog({required this.dialogTitle, required this.dialogBody});
+  const ErrorDialog({super.key, required this.dialogTitle, required this.dialogBody});
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +12,11 @@ class ErrorDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
-      title: Text(this.dialogTitle),
+      title: Text(dialogTitle),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(this.dialogBody),
+            Text(dialogBody),
           ],
         ),
       ),
