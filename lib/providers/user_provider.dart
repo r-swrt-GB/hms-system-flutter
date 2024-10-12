@@ -1,14 +1,10 @@
-// ignore_for_file: avoid_print
-
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/user.dart';
+import 'package:hms_system_application/providers/app/app_provider.dart';
 
-class UserProvider with ChangeNotifier {
+class UserProvider extends AppProvider<UserProvider> {
   final String boxName = "userBox";
-  late List<User> _users;
-
-  List<User> get users => _users;
 
   String? _loggedInUserEmail;
   String? get loggedInUserEmail => _loggedInUserEmail;
@@ -22,6 +18,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<User?> get user async {
+    print("HI!");
     final box = await getUserBox();
     return box.getAt(0);
   }
@@ -31,12 +28,21 @@ class UserProvider with ChangeNotifier {
       final box = await getUserBox();
 
       if (user != null) {
-        await box.clear();
-        await box.add(user);
+        // Store to backend
+        Response response = await api.updateuser(user);
 
-        notifyListeners();
-        print('User saved successfully');
-        return true;
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          // Store locally
+          await box.clear();
+          await box.add(user);
+
+          notifyListeners();
+          print('User saved successfully');
+          return true;
+        } else {
+          print('Failed to save user');
+          return false;
+        }
       } else {
         return false;
       }

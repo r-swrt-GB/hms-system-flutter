@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hms_system_application/models/user.dart';
+import 'package:hms_system_application/providers/user_provider.dart';
 import 'package:hms_system_application/widgets/outlined_text_input.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -28,16 +31,33 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    // Set initial values to controllers
-    _firstNameController.text = initialFirstName;
-    _lastNameController.text = initialLastName;
-    _emailController.text = initialEmail;
-    _contactController.text = initialContact;
+    setUserData();
 
     // Add listeners to detect changes in the text fields
     _firstNameController.addListener(_checkForChanges);
     _lastNameController.addListener(_checkForChanges);
     _contactController.addListener(_checkForChanges);
+  }
+
+  // Set initial values to controllers
+  void setUserData() async {
+    // Access the UserProvider
+    UserProvider userProvider = context.read<UserProvider>();
+
+    // Retrieve the user from the provider
+    User? user = await userProvider.user;
+
+    // Check if the user was successfully retrieved and set the controller values accordingly
+    setState(() {
+      _firstNameController.text = user?.firstName ?? 'Error loading name';
+      _lastNameController.text = user?.lastName ?? 'Error loading surname';
+      _emailController.text = user?.email ?? 'Error loading email';
+      _contactController.text = 'Error loading contact number';
+    });
+
+    print("firstName: ${user?.firstName}");
+    print("lastName: ${user?.lastName}");
+    print("email: ${user?.email}");
   }
 
   // Check if the data has been changed

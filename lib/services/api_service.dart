@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:hms_system_application/framework/services/http_service.dart';
+import 'package:hms_system_application/models/user.dart';
 
 var postOptions = Options(headers: {
   'Content-Type': 'application/json',
@@ -46,7 +49,8 @@ class ApiService extends HttpService {
   }
 
   Future<Response> refreshUser() async {
-    return await httpGet('/api/v1/profile');
+    Response respone = await httpGet('/api/v1/profile');
+    return respone;
   }
 
   Future<Response> deleteUser(
@@ -58,6 +62,22 @@ class ApiService extends HttpService {
       },
       options: Options(headers: {
         'Authorization': 'Bearer $userToken',
+        'Accept': 'application/json',
+      }),
+    );
+  }
+
+  Future<Response> updateuser(User user) async {
+    print("FLUTTER TOKEN USED: ${super.token}");
+    return await httpPatch(
+      '/api/v1/edit/user/${user.userId}',
+      data: {
+        'first_name': user.firstName,
+        'last_name': user.lastName,
+        'email': user.email,
+      },
+      options: Options(headers: {
+        'Authorization': 'Bearer ${super.token}',
         'Accept': 'application/json',
       }),
     );
