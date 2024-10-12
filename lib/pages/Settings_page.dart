@@ -13,20 +13,18 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   // Initial field values
-  String initialFirstName = 'John';
-  String initialLastName = 'Doe';
-  String initialEmail = 'johndoe@example.com';
-  String initialContact = '0123456789';
+  String initialFirstName = '';
+  String initialLastName = '';
+  String initialEmail = '';
 
   // Controllers to handle the input
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _contactController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>(); // Form key for validation
+  final _formKey = GlobalKey<FormState>();
   bool _isDataChanged = false;
-  bool _isContactValid = true; // Flag to track contact validation
+  bool _isContactValid = true;
 
   @override
   void initState() {
@@ -36,7 +34,6 @@ class _SettingsPageState extends State<SettingsPage> {
     // Add listeners to detect changes in the text fields
     _firstNameController.addListener(_checkForChanges);
     _lastNameController.addListener(_checkForChanges);
-    _contactController.addListener(_checkForChanges);
   }
 
   // Set initial values to controllers
@@ -49,44 +46,49 @@ class _SettingsPageState extends State<SettingsPage> {
 
     // Check if the user was successfully retrieved and set the controller values accordingly
     setState(() {
-      _firstNameController.text = user?.firstName ?? 'Error loading name';
-      _lastNameController.text = user?.lastName ?? 'Error loading surname';
-      _emailController.text = user?.email ?? 'Error loading email';
-      _contactController.text = 'Error loading contact number';
+      initialFirstName =
+          _firstNameController.text = user?.firstName ?? 'Error loading name';
+      initialLastName =
+          _lastNameController.text = user?.lastName ?? 'Error loading surname';
+      initialEmail =
+          _emailController.text = user?.email ?? 'Error loading email';
     });
+  }
 
-    print("firstName: ${user?.firstName}");
-    print("lastName: ${user?.lastName}");
-    print("email: ${user?.email}");
+  Future<void> saveUserChanges() async {
+    UserProvider userProvider = context.read<UserProvider>();
+
+    // Retrieve the user from the provider
+    User? user = await userProvider.user;
+
+    if (user != null) {
+      user.firstName = _firstNameController.value.text;
+      user.lastName = _lastNameController.value.text;
+      user.email = _emailController.value.text;
+    }
+
+    bool isSaved = await userProvider.storeUserDetails(user);
+
+    if (isSaved) {
+      // Check if the user was successfully retrieved and set the controller values accordingly
+      setState(() {
+        initialFirstName = _firstNameController.value.text;
+        initialLastName = _lastNameController.value.text;
+        initialEmail = _emailController.value.text;
+      });
+    }
   }
 
   // Check if the data has been changed
   void _checkForChanges() {
     if (_firstNameController.text != initialFirstName ||
-        _lastNameController.text != initialLastName ||
-        _contactController.text != initialContact) {
+        _lastNameController.text != initialLastName) {
       setState(() {
         _isDataChanged = true;
       });
     } else {
       setState(() {
         _isDataChanged = false;
-      });
-    }
-
-    // Validate contact number
-    _validateContact(_contactController.text);
-  }
-
-  // Validate the contact number (starts with '0' and is 10 characters long)
-  void _validateContact(String value) {
-    if (value.startsWith('0') && value.length == 10) {
-      setState(() {
-        _isContactValid = true;
-      });
-    } else {
-      setState(() {
-        _isContactValid = false;
       });
     }
   }
@@ -108,7 +110,10 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               ElevatedButton(
                 child: const Text('Save'),
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () async {
+                  await saveUserChanges();
+                  Navigator.of(context).pop(true);
+                },
               ),
             ],
           );
@@ -119,7 +124,6 @@ class _SettingsPageState extends State<SettingsPage> {
         setState(() {
           initialFirstName = _firstNameController.text;
           initialLastName = _lastNameController.text;
-          initialContact = _contactController.text;
           _isDataChanged = false; // Reset after saving
         });
         ScaffoldMessenger.of(context).showSnackBar(
@@ -134,7 +138,6 @@ class _SettingsPageState extends State<SettingsPage> {
     setState(() {
       _firstNameController.text = initialFirstName;
       _lastNameController.text = initialLastName;
-      _contactController.text = initialContact;
       _isDataChanged = false;
     });
     ScaffoldMessenger.of(context).showSnackBar(
@@ -203,23 +206,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 controller: _emailController,
                 labelText: 'Email',
                 readOnly: true, // Set email as read-only
-              ),
-              const SizedBox(height: 24),
-
-              // Contact
-              const SizedBox(height: 8),
-              OutlinedTextInput(
-                controller: _contactController,
-                labelText: 'Contact number',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your contact number';
-                  }
-                  if (!_isContactValid) {
-                    return 'Contact number must start with 0 and be exactly 10 digits long';
-                  }
-                  return null;
-                },
               ),
               const SizedBox(height: 24),
 

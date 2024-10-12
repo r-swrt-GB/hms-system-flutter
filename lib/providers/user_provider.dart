@@ -4,7 +4,7 @@ import 'package:hms_system_application/models/user.dart';
 import 'package:hms_system_application/providers/app/app_provider.dart';
 
 class UserProvider extends AppProvider<UserProvider> {
-  final String boxName = "userBox";
+  final String boxName = "user";
 
   String? _loggedInUserEmail;
   String? get loggedInUserEmail => _loggedInUserEmail;
@@ -18,7 +18,6 @@ class UserProvider extends AppProvider<UserProvider> {
   }
 
   Future<User?> get user async {
-    print("HI!");
     final box = await getUserBox();
     return box.getAt(0);
   }

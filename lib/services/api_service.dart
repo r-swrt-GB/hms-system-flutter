@@ -68,7 +68,6 @@ class ApiService extends HttpService {
   }
 
   Future<Response> updateuser(User user) async {
-    print("FLUTTER TOKEN USED: ${super.token}");
     return await httpPatch(
       '/api/v1/edit/user/${user.userId}',
       data: {
@@ -76,10 +75,7 @@ class ApiService extends HttpService {
         'last_name': user.lastName,
         'email': user.email,
       },
-      options: Options(headers: {
-        'Authorization': 'Bearer ${super.token}',
-        'Accept': 'application/json',
-      }),
+      options: postOptions,
     );
   }
 
