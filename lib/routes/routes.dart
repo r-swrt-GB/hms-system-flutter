@@ -1,6 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
+import 'package:hms_system_application/models/assignment.dart';
+import 'package:hms_system_application/models/submission.dart';
 import 'package:hms_system_application/pages/Settings_page.dart';
+import 'package:hms_system_application/pages/assigments_page.dart';
+import 'package:hms_system_application/pages/assigments_page_old.dart';
 import 'package:hms_system_application/pages/assignment_page.dart';
 import 'package:hms_system_application/pages/notifications_page.dart';
 import 'package:hms_system_application/pages/sign_in_page.dart';
@@ -19,7 +23,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/',
     (args) {
-      return const NotificationsPage();
+      return const AssignmentPage();
     },
     routeGuard: authGuard,
   );
@@ -43,9 +47,12 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/assignment-details',
     (args) {
-      // return const AssignmentDetailsPage();
+      Assignment assignment = args['assignment'];
+      return AssigmentsPage(
+        assignment: assignment,
+      );
     },
-    // routeGuard: authGuard,
+    routeGuard: authGuard,
   );
 
   router.materialRoute(

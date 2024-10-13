@@ -100,6 +100,15 @@ class ApiService extends HttpService {
     );
   }
 
+  Future<Response> uploadFiles(
+      int moduleId, int assignmentId, List files) async {
+    return await httpPatch(
+      '/api/v1/',
+      data: {},
+      options: postOptions,
+    );
+  }
+
   Future<Response> getModules() async {
     return await httpGet(
       '/api_v1/modules/',

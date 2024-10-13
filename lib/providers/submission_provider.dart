@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/submission.dart';
+import 'package:hms_system_application/providers/user_provider.dart';
 
-class SubmissionProvider with ChangeNotifier {
+class SubmissionProvider extends UserProvider {
+  @override
   final String boxName = "submissionBox";
   late List<Submission> _submission;
 
@@ -23,20 +25,14 @@ class SubmissionProvider with ChangeNotifier {
     return box.getAt(0);
   }
 
-  Future<bool> storeSubmissionDetails(Submission? submission) async {
+  Future<bool> storeSubmissionDetails(
+      int moduleId, int assignmentId, List files) async {
     try {
       final box = await getSubmissionBox();
 
-      if (submission != null) {
-        await box.clear();
-        await box.add(submission);
-
-        notifyListeners();
-        print('submission saved successfully');
-        return true;
-      } else {
-        return false;
-      }
+      api.uploadFiles(moduleId, assignmentId, files);
+      print('submission saved successfully');
+      return true;
     } catch (e) {
       print(e);
       return false;

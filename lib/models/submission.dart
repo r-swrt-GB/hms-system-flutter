@@ -15,21 +15,27 @@ class Submission extends HiveObject {
   int assignmentId;
 
   @HiveField(3)
-  int submissionGrade;
+  int? submissionGrade;
+
+  @HiveField(4)
+  List? files;
 
   Submission({
     required this.submissionId,
     required this.submissionDate,
     required this.assignmentId,
     required this.submissionGrade,
+    required this.files,
   });
 
   factory Submission.fromJson(Map<String, dynamic> json) {
     return Submission(
-        submissionId: int.parse(json['id']),
-        submissionDate: coalesceDate(json['submission_date']),
-        assignmentId: int.parse(json['assignment_id']),
-        submissionGrade: int.parse(json['grade']));
+      submissionId: int.parse(json['id']),
+      submissionDate: coalesceDate(json['submission_date']),
+      assignmentId: int.parse(json['assignment_id']),
+      submissionGrade: int.parse(json['grade']),
+      files: json['files'],
+    );
   }
 
   static List<Submission> fromJsonList(List<dynamic> jsonList) {

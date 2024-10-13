@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hms_system_application/framework/providers/navigation_provider.dart';
+import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/models/assignment.dart';
 import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/providers/assignment_provider.dart';
@@ -113,38 +116,49 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 ? ListView.builder(
                     itemCount: filteredAssignments.length,
                     itemBuilder: (context, index) {
-                      return Card(
-                        margin: EdgeInsets.all(10),
-                        child: Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                filteredAssignments[index].assignmentTitle!,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                      return GestureDetector(
+                        child: Card(
+                          margin: EdgeInsets.all(10),
+                          child: Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  filteredAssignments[index].assignmentTitle!,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                filteredAssignments[index]
-                                    .assignmentDescription!,
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                DateFormat('dd/MM/yyyy at HH:mm')
-                                    .format(filteredAssignments[index].dueDate),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey,
+                                SizedBox(height: 5),
+                                Text(
+                                  filteredAssignments[index]
+                                      .assignmentDescription!,
+                                  style: TextStyle(fontSize: 16),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 5),
+                                Text(
+                                  DateFormat('dd/MM/yyyy at HH:mm').format(
+                                      filteredAssignments[index].dueDate),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/assignment-details',
+                            arguments: {
+                              'assignment': filteredAssignments[index]
+                            },
+                          );
+                        },
                       );
                     },
                   )

@@ -25,6 +25,7 @@ dependencies:
   path_provider: ^2.1.2
   email_validator: ^3.0.0
   video_player: ^2.9.2
+  image_picker: ^1.1.2
 
   intl: any
 dev_dependencies:
