@@ -23,7 +23,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
   late VideoPlayerController _videoController;
 
   bool _hasVideo = false;
-  List<File> _videoFiles = [];
+  final List<File> _videoFiles = [];
   int _selectedVideoIndex = 0;
 
   @override
@@ -61,8 +61,8 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
   }
 
   Future<void> _pickVideo() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? video = await picker.pickVideo(source: ImageSource.gallery);
 
     if (video != null) {
       File videoFile = File(video.path);
@@ -77,8 +77,8 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
   }
 
   Future<void> _recordVideo() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? video = await _picker.pickVideo(source: ImageSource.camera);
+    final ImagePicker picker = ImagePicker();
+    final XFile? video = await picker.pickVideo(source: ImageSource.camera);
 
     if (video != null) {
       File videoFile = File(video.path);
@@ -172,16 +172,16 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.photo_library),
-                  title: Text('Choose from gallery'),
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Choose from gallery'),
                   onTap: () {
                     Navigator.pop(context);
                     _pickVideo();
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.videocam),
-                  title: Text('Record a video'),
+                  leading: const Icon(Icons.videocam),
+                  title: const Text('Record a video'),
                   onTap: () {
                     Navigator.pop(context);
                     _recordVideo();
@@ -229,7 +229,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                       children: [
                         Text(
                           widget.assignment.assignmentTitle,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w500,
                           ),
@@ -237,7 +237,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                         const SizedBox(height: 8.0),
                         Text(
                           widget.assignment.assignmentDescription,
-                          style: TextStyle(fontSize: 19),
+                          style: const TextStyle(fontSize: 19),
                           softWrap: true,
                         ),
                         const Padding(
@@ -248,11 +248,11 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             widget.submission!.submissionGrade != null)
                           Text(
                             'Assignment grade: ${widget.submission!.submissionGrade}',
-                            style: TextStyle(fontSize: 19),
+                            style: const TextStyle(fontSize: 19),
                           ),
                         Text(
                           'Assignment status: ${getAssignmentStatus()}',
-                          style: TextStyle(fontSize: 19),
+                          style: const TextStyle(fontSize: 19),
                         ),
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -260,7 +260,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                         ),
                         Row(
                           children: [
-                            Card.outlined(
+                            const Card.outlined(
                               color: Color(0xFFF0F3F4),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -269,14 +269,14 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             ),
                             Text(
                               'Open date: ${DateFormat('dd-MM-yyyy').format(widget.assignment.openDate)}',
-                              style: TextStyle(fontSize: 19),
+                              style: const TextStyle(fontSize: 19),
                               softWrap: true,
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Card.outlined(
+                            const Card.outlined(
                               color: Color(0xFFF0F3F4),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -285,14 +285,14 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             ),
                             Text(
                               'Close date: ${DateFormat('dd-MM-yyyy').format(widget.assignment.dueDate)}',
-                              style: TextStyle(fontSize: 19),
+                              style: const TextStyle(fontSize: 19),
                               softWrap: true,
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Card.outlined(
+                            const Card.outlined(
                               color: Color(0xFFF0F3F4),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -301,14 +301,14 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             ),
                             Text(
                               'Minimum videos: ${widget.assignment.minVideos}',
-                              style: TextStyle(fontSize: 19),
+                              style: const TextStyle(fontSize: 19),
                               softWrap: true,
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Card.outlined(
+                            const Card.outlined(
                               color: Color(0xFFF0F3F4),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -317,14 +317,14 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             ),
                             Text(
                               'Maximum videos: ${widget.assignment.maxVideos}',
-                              style: TextStyle(fontSize: 19),
+                              style: const TextStyle(fontSize: 19),
                               softWrap: true,
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Card.outlined(
+                            const Card.outlined(
                               color: Color(0xFFF0F3F4),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -333,14 +333,14 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             ),
                             Text(
                               'Maximum duration: ${widget.assignment.maxVideoLength} min',
-                              style: TextStyle(fontSize: 19),
+                              style: const TextStyle(fontSize: 19),
                               softWrap: true,
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Card.outlined(
+                            const Card.outlined(
                               color: Color(0xFFF0F3F4),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -349,7 +349,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                             ),
                             Text(
                               'Maximum grade: ${widget.assignment.maxGrade}',
-                              style: TextStyle(fontSize: 19),
+                              style: const TextStyle(fontSize: 19),
                               softWrap: true,
                             ),
                           ],
@@ -400,9 +400,9 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                                       });
                                     },
                                     child: Card.outlined(
-                                      color: Color(0xFFF0F3F4),
+                                      color: const Color(0xFFF0F3F4),
                                       child: Padding(
-                                        padding: EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(8.0),
                                         child: Icon(
                                           _videoController.value.isPlaying
                                               ? Icons.play_arrow

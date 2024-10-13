@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:hms_system_application/framework/providers/navigation_provider.dart';
-import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/models/assignment.dart';
 import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/providers/assignment_provider.dart';
@@ -51,7 +48,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('HMS Systems'),
+        title: const Text('HMS Systems'),
         backgroundColor: Colors.grey,
       ),
       backgroundColor: Colors.grey,
@@ -60,7 +57,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
           // Horizontal Scrollable Pill-shaped Module Names
           Container(
             height: 50,
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: modules.length,
@@ -74,9 +71,9 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     });
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
                     decoration: BoxDecoration(
                       color: isSelected ? Colors.blue : Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(20),
@@ -96,7 +93,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
           ),
 
           // Title for Assignments
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: Align(
               alignment: Alignment.centerLeft,
@@ -118,30 +115,30 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         child: Card(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           child: Padding(
-                            padding: EdgeInsets.all(12.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  filteredAssignments[index].assignmentTitle!,
-                                  style: TextStyle(
+                                  filteredAssignments[index].assignmentTitle,
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   filteredAssignments[index]
-                                      .assignmentDescription!,
-                                  style: TextStyle(fontSize: 16),
+                                      .assignmentDescription,
+                                  style: const TextStyle(fontSize: 16),
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   DateFormat('dd/MM/yyyy at HH:mm').format(
                                       filteredAssignments[index].dueDate),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
                                   ),

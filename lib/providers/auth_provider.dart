@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:hms_system_application/models/user.dart';
 import 'package:hms_system_application/providers/app/app_provider.dart';
 
@@ -62,8 +63,9 @@ class AuthProvider extends AppProvider<AuthProvider> {
   Future refreshUser() async {
     try {
       startLoading();
-      var userResponse = await api.refreshUser();
+      Response userResponse = await api.refreshUser();
       user = User.fromJson(userResponse.data);
+      return userResponse;
     } catch (ex) {
       return false;
     } finally {

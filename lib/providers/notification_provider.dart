@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/models/notification_model.dart';

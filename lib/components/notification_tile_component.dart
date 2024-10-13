@@ -34,7 +34,7 @@ class NotificationTile extends StatelessWidget {
                   width: 12,
                   height: 12,
                   margin: const EdgeInsets.only(right: 12),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.blue, // Blue color for unread indicator
                   ),

@@ -40,7 +40,7 @@ class MenuDrawer extends StatelessWidget {
                 const Divider(),
                 ListTile(
                   dense: true,
-                  title: Text('Settings'),
+                  title: const Text('Settings'),
                   leading: Icon(
                     Icons.settings,
                     color: Theme.of(context).primaryColor,
@@ -55,12 +55,12 @@ class MenuDrawer extends StatelessWidget {
           SafeArea(
             child: Consumer(
               builder: (context, provider, widget) {
-                return Wrap(
+                return const Wrap(
                   direction: Axis.vertical,
                   children: [
                     Text(
                       "Some Text",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w600,
                       ),

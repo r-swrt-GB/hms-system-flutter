@@ -19,13 +19,13 @@ final ThemeData appTheme = ThemeData(
   hintColor: const Color(0x8a000000),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         color: Color(0xff000000),
       ),
-      minimumSize: Size(88, 36), // minWidth and height
+      minimumSize: const Size(88, 36), // minWidth and height
       padding:
-          EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16), // padding
-      shape: RoundedRectangleBorder(
+          const EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16), // padding
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30.0)), // shape
       ),
       // primary: Color(0xffe0e0e0), // buttonColor (background)
@@ -33,8 +33,8 @@ final ThemeData appTheme = ThemeData(
       splashFactory: InkRipple.splashFactory, // splash effect
       elevation: 0, // Default elevation
       shadowColor:
-          Color(0x29000000), // highlightColor and splashColor equivalent
-      foregroundColor: Color(0xff263238), // text color (onPrimary)
+          const Color(0x29000000), // highlightColor and splashColor equivalent
+      foregroundColor: const Color(0xff263238), // text color (onPrimary)
       // overlayColor: MaterialStateProperty.resolveWith<Color?>(
       //   (Set<MaterialState> states) {
       //     if (states.contains(MaterialState.focused)) {
@@ -269,7 +269,7 @@ final ThemeData appTheme = ThemeData(
       return null;
     }),
   ),
-  bottomAppBarTheme: BottomAppBarTheme(color: const Color(0xffffffff)),
+  bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xffffffff)),
   colorScheme: ColorScheme.fromSwatch(
           primarySwatch: const MaterialColor(4280693304, {
     50: Color(0xfff0f3f5),

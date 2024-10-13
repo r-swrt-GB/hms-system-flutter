@@ -74,10 +74,10 @@ Future<void> showLoadingDialog(context) async {
   await showDialog(
     context: context,
     builder: (BuildContext context) {
-      return Dialog(
+      return const Dialog(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Center(

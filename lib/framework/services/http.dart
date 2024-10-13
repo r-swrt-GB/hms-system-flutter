@@ -87,7 +87,7 @@ class Http {
           e.response?.data['error'] != 'invalid_credentials' &&
           e.response?.data['error'] != 'could_not_create_token') {
         //The delay gives the store time to finish some current actions
-        Future.delayed(Duration(milliseconds: 300))
+        Future.delayed(const Duration(milliseconds: 300))
             .then((_) => this.onAuthFailedResponse(tokenBox));
       }
     }

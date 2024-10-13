@@ -69,7 +69,7 @@ class ApiService extends HttpService {
   Future<Response> markNotificationAsRead(
       int moduleId, int notificationId) async {
     return await httpPatch(
-      '/api/v1/modules/${moduleId}/notifications/${notificationId}/mark-as-read',
+      '/api/v1/modules/$moduleId/notifications/$notificationId/mark-as-read',
       options: postOptions,
     );
   }

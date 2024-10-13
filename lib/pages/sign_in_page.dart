@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hms_system_application/components/input_password_field.dart';
+import 'package:hms_system_application/components/input_textfield_component.dart';
+import 'package:hms_system_application/methods/validation_methods.dart';
 import 'package:hms_system_application/models/user.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 import 'package:hms_system_application/providers/user_provider.dart';
@@ -23,24 +26,69 @@ class _SignInPageState extends State<SignInPage> {
 
   void _signIn() async {
     if (_formKey.currentState!.validate()) {
-      authProvider.login(_emailController.text, _passwordController.text);
-      String? token = authProvider.token;
+      await authProvider
+          .login(_emailController.text, _passwordController.text)
+          .then((value) async {
+        String? token = authProvider.token;
 
-      if (token != null) {
-        Response userResponse = await authProvider.refreshUser();
+        if (token != null) {
+          Response userResponse = await authProvider.refreshUser();
 
-        User user = User.fromJson(userResponse.data['data']);
-        userProvider.storeUserDetails(user);
-      }
+          User user = User.fromJson(userResponse.data);
+          userProvider.storeUserDetails(user);
+
+          Navigator.of(context, rootNavigator: true)
+              .pushReplacementNamed('/central');
+          print('Want to go to central page instace 2');
+        }
+      });
     }
+  }
+
+  PreferredSizeWidget buildAppBar() {
+    return AppBar(
+      title: const Text('Sign In'),
+      elevation: 0,
+      backgroundColor: Colors.grey[100],
+    );
+  }
+
+  Widget buildEmailField() {
+    return InputTextField(
+      inputControllerEmail: _emailController,
+      hintText: "Email",
+      onTap: null,
+      readOnly: false,
+      icon: Icons.person,
+      validator: (value) => emailValidator(value),
+    );
+  }
+
+  Widget buildPasswordField() {
+    return InputPasswordTextField(
+      hintText: "Password",
+      inputControllerPassword: _passwordController,
+      icon: Icons.lock,
+      validator: (value) => passwordValidator(value),
+    );
+  }
+
+  Widget BuildSignInButton() {
+    return ElevatedButton(
+      onPressed: _signIn,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        minimumSize: const Size(40, 50),
+      ),
+      child: const Text('Sign In'),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sign In'),
-      ),
+      backgroundColor: Colors.grey[100],
+      appBar: buildAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -48,37 +96,12 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 24.0),
-              ElevatedButton(
-                onPressed: _signIn,
-                child: Text('Sign In'),
-              ),
+              const SizedBox(height: 30),
+              buildEmailField(),
+              const SizedBox(height: 30),
+              buildPasswordField(),
+              const Spacer(),
+              BuildSignInButton(),
             ],
           ),
         ),
