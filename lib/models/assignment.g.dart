@@ -18,6 +18,7 @@ class AssignmentAdapter extends TypeAdapter<Assignment> {
     };
     return Assignment(
       assignmentId: fields[0] as int,
+      moduleId: fields[9] as int,
       assignmentTitle: fields[1] as String,
       assignmentDescription: fields[2] as String,
       minVideos: fields[3] as int,
@@ -32,7 +33,7 @@ class AssignmentAdapter extends TypeAdapter<Assignment> {
   @override
   void write(BinaryWriter writer, Assignment obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.assignmentId)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class AssignmentAdapter extends TypeAdapter<Assignment> {
       ..writeByte(7)
       ..write(obj.openDate)
       ..writeByte(8)
-      ..write(obj.dueDate);
+      ..write(obj.dueDate)
+      ..writeByte(9)
+      ..write(obj.moduleId);
   }
 
   @override

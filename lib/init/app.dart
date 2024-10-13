@@ -3,8 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/app/main.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/init/router.dart';
+import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/pages/splash_screen.dart';
+import 'package:hms_system_application/providers/assignment_provider.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
+import 'package:hms_system_application/providers/module_provider.dart';
 import 'package:hms_system_application/utils/environment_config.dart';
 
 import 'config.dart';
@@ -37,6 +40,8 @@ void initApp({String envFile = '.env'}) async {
 
 Future<void> appStartup() async {
   var authProvider = GetIt.I.get<AuthProvider>();
+  var moduleProvider = GetIt.I.get<ModuleProvider>();
+  var assignmentProvider = GetIt.I.get<AssignmentProvider>();
 
   await Future.delayed(const Duration(seconds: 2));
 
@@ -45,4 +50,9 @@ Future<void> appStartup() async {
   }
 
   await authProvider.refreshUser();
+  await moduleProvider.refreshModules();
+
+  List<Module> modules = moduleProvider.modules;
+
+  await assignmentProvider.refreshAssignments(modules);
 }

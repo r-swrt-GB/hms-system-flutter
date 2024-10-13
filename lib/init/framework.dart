@@ -50,10 +50,10 @@ class Framework {
     await store.openBox<String?>('auth_token');
     await store.openBox<User>('user');
     await store.openBox<File>('file');
-    await store.openBox<Assignment>('assignmentBox');
+    await store.openBox<Assignment>('assignmentsBox');
     await store.openBox<Comment>('commentBox');
     await store.openBox<Group>('groupBox');
-    await store.openBox<Module>('moduleBox');
+    await store.openBox<Module>('modulesBox');
     await store.openBox<Notification>('notificationBox');
     // await store.openBox('general');
 

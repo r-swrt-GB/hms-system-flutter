@@ -65,7 +65,7 @@ class AuthProvider extends AppProvider<AuthProvider> {
       var userResponse = await api.refreshUser();
       user = User.fromJson(userResponse.data);
     } catch (ex) {
-      rethrow;
+      return false;
     } finally {
       stopLoading();
       notifyListeners();
@@ -75,7 +75,7 @@ class AuthProvider extends AppProvider<AuthProvider> {
   Future setUserProfile(profileData) async {
     try {
       startLoading();
-     user = User.fromJson(profileData);
+      user = User.fromJson(profileData);
     } catch (ex) {
       rethrow;
     } finally {

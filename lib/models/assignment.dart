@@ -32,8 +32,12 @@ class Assignment extends HiveObject {
   @HiveField(8)
   DateTime dueDate;
 
+  @HiveField(9)
+  int moduleId;
+
   Assignment({
     required this.assignmentId,
+    required this.moduleId,
     required this.assignmentTitle,
     required this.assignmentDescription,
     required this.minVideos,
@@ -46,13 +50,14 @@ class Assignment extends HiveObject {
 
   factory Assignment.fromJson(Map<String, dynamic> json) {
     return Assignment(
-      assignmentId: int.parse(json['id']),
+      assignmentId: json['id'],
+      moduleId: json['module_id'],
       assignmentTitle: coalesceString(json['title']),
       assignmentDescription: coalesceString(json['description']),
-      minVideos: int.parse(json['min_videos']),
-      maxVideos: int.parse(json['max_videos']),
-      maxVideoLength: int.parse(json['max_video_length']),
-      maxGrade: int.parse(json['max_grade']),
+      minVideos: json['min_videos'],
+      maxVideos: json['max_videos'],
+      maxVideoLength: json['max_video_length'],
+      maxGrade: json['max_grade'],
       openDate: coalesceDate(json['open_date']),
       dueDate: coalesceDate(json['due_date']),
     );
