@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
+import 'package:hms_system_application/pages/assigments_page.dart';
 import 'package:hms_system_application/pages/home_screen.dart';
 import 'package:hms_system_application/pages/notifications_page.dart';
 import 'package:hms_system_application/pages/sign_in_page.dart';
@@ -34,7 +35,7 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/assignments',
     (args) {
-      return const AssignmentsPage();
+      return const AssigmentsPage();
     },
     // routeGuard: authGuard,
   );
