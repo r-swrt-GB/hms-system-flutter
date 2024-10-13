@@ -61,6 +61,11 @@ class ApiService extends HttpService {
     return respone;
   }
 
+  Future<Response> refreshNotifications(int moduleId) async {
+    Response respone = await httpGet('/api/v1/modules/$moduleId/notifications');
+    return respone;
+  }
+
   Future<Response> deleteUser(
       int userId, String email, String userToken) async {
     return await httpDelete(
