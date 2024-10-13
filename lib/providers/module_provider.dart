@@ -1,35 +1,35 @@
-// ignore_for_file: avoid_print
-
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/module.dart';
+import 'package:hms_system_application/providers/user_provider.dart';
 
-class ModuleProvider with ChangeNotifier {
-  final String boxName = "moduleBox";
-  late List<Module> _module;
+class ModuleProvider extends UserProvider {
+  @override
+  final String boxName = "modulesBox";
+  late List<Module> _modules;
 
-  List<Module> get users => _module;
+  List<Module> get modules => _modules;
 
-  Future<Box<Module>> getModuleBox() async {
+  Future<Box<List<Module>>> getModulesBox() async {
     if (Hive.isBoxOpen(boxName)) {
-      return Hive.box<Module>(boxName);
+      return Hive.box<List<Module>>(boxName);
     } else {
-      return await Hive.openBox<Module>(boxName);
+      return await Hive.openBox<List<Module>>(boxName);
     }
   }
 
-  Future<Module?> get module async {
-    final box = await getModuleBox();
+  Future<List<Module>?> get module async {
+    final box = await getModulesBox();
     return box.getAt(0);
   }
 
-  Future<bool> storeModuleDetails(Module? module) async {
+  Future<bool> storeModulesDetails(List<Module>? modules) async {
     try {
-      final box = await getModuleBox();
+      final box = await getModulesBox();
 
-      if (module != null) {
+      if (modules != null) {
         await box.clear();
-        await box.add(module);
+        await box.add(modules);
 
         notifyListeners();
         print('Module saved successfully');
@@ -40,6 +40,28 @@ class ModuleProvider with ChangeNotifier {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  Future refreshModules() async {
+    try {
+      startLoading();
+      Response moduleResponse = await api.refreshModules();
+
+      List<Module> moduleList = [];
+
+      if (moduleResponse.statusCode == 200) {
+        for (var i = 0; i < moduleResponse.data['modules'].length; i++) {
+          moduleList.add(Module.fromJson(moduleResponse.data['modules'][i]));
+        }
+
+        _modules = moduleList;
+      }
+    } catch (ex) {
+      rethrow;
+    } finally {
+      stopLoading();
+      notifyListeners();
     }
   }
 }

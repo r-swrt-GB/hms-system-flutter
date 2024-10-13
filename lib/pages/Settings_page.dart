@@ -24,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   final _formKey = GlobalKey<FormState>();
   bool _isDataChanged = false;
-  bool _isContactValid = true;
+  final bool _isContactValid = true;
 
   @override
   void initState() {

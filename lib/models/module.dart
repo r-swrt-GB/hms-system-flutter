@@ -26,7 +26,7 @@ class Module extends HiveObject {
 
   factory Module.fromJson(Map<String, dynamic> json) {
     return Module(
-      moduleId: int.parse(json['id']),
+      moduleId: json['id'],
       moduleName: coalesceString(json['module_name']),
       moduleCode: coalesceString(json['code']),
       moduleDescription: coalesceString(json['description']),

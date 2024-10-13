@@ -1,45 +1,60 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/assignment.dart';
+import 'package:hms_system_application/models/module.dart';
+import 'package:hms_system_application/providers/user_provider.dart';
 
-class AssignmentProvider with ChangeNotifier {
-  final String boxName = "assignmentBox";
+class AssignmentProvider extends UserProvider {
+  @override
+  final String boxName = "assignmentsBox";
   late List<Assignment> _assignments;
 
   List<Assignment> get assignments => _assignments;
 
-  Future<Box<Assignment>> getAssignmentBox() async {
+  Future<Box<List<Assignment>>> getAssignmentsBox() async {
     if (Hive.isBoxOpen(boxName)) {
-      return Hive.box<Assignment>(boxName);
+      return Hive.box<List<Assignment>>(boxName);
     } else {
-      return await Hive.openBox<Assignment>(boxName);
+      return await Hive.openBox<List<Assignment>>(boxName);
     }
   }
 
-  Future<Assignment?> get assignment async {
-    final box = await getAssignmentBox();
+  Future<List<Assignment>?> get assignment async {
+    final box = await getAssignmentsBox();
     return box.getAt(0);
   }
 
-  Future<bool> storeAssignmentDetails(Assignment? assignment) async {
+  Future refreshAssignments(List<Module> modules) async {
     try {
-      final box = await getAssignmentBox();
+      List<Assignment> assignmentList = [];
 
-      if (assignment != null) {
-        await box.clear();
-        await box.add(assignment);
-
-        notifyListeners();
-        print('Assignment saved successfully');
-        return true;
-      } else {
-        return false;
+      if (modules.isEmpty) {
+        return;
       }
-    } catch (e) {
-      print(e);
-      return false;
+
+      for (var i = 0; i < modules.length; i++) {
+        Response assignmentResponse =
+            await api.refreshAssigments(modules[i].moduleId);
+
+        if (assignmentResponse.statusCode == 200 &&
+            assignmentResponse.data['assignments'] != null) {
+          for (var k = 0;
+              k < assignmentResponse.data['assignments'].length;
+              k++) {
+            assignmentList.add(
+                Assignment.fromJson(assignmentResponse.data['assignments'][k]));
+          }
+        }
+      }
+
+      _assignments = assignmentList;
+    } catch (ex) {
+      rethrow;
+    } finally {
+      stopLoading();
+      notifyListeners();
     }
   }
 }

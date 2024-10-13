@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:hms_system_application/framework/services/http_service.dart';
 import 'package:hms_system_application/models/user.dart';
@@ -50,6 +48,16 @@ class ApiService extends HttpService {
 
   Future<Response> refreshUser() async {
     Response respone = await httpGet('/api/v1/profile');
+    return respone;
+  }
+
+  Future<Response> refreshModules() async {
+    Response respone = await httpGet('/api/v1/modules');
+    return respone;
+  }
+
+  Future<Response> refreshAssigments(int moduleId) async {
+    Response respone = await httpGet('/api/v1/modules/$moduleId/assignments');
     return respone;
   }
 
