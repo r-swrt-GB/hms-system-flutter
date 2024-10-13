@@ -1,6 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hms_system_application/components/notification_tile_component.dart';
+import 'package:hms_system_application/models/module.dart';
+import 'package:hms_system_application/models/notification_model.dart';
+import 'package:hms_system_application/providers/module_provider.dart';
+import 'package:hms_system_application/providers/notification_provider.dart';
+import 'package:provider/provider.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -10,35 +15,35 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-  final List<String> modules = ['CMPG321', 'CMPG322', 'CMPG323', 'CMPG324'];
+  List<Module> modules = [];
 
-  final Map<String, List<Map<String, String>>> notifications = {
-    'CMPG321': [
-      {
-        'title': 'Assignment Due',
-        'description':
-            'Assignment 1 due on Friday. Please note that when you submit this assignment you should use a pdf'
-      },
-      {
-        'title': 'Lecture Update',
-        'description':
-            'Lecture moved to Thursday. Please try to be on time as we will be going through new work and techniques \n\n We are also going to do a quiz in that class'
-      },
-    ],
-    'CMPG322': [
-      {'title': 'Exam Schedule', 'description': 'Exam on next Monday.'},
-    ],
-    'CMPG323': [
-      {'title': 'Project Milestone', 'description': 'Submit milestone 2.'},
-    ],
-    'CMPG324': [
-      {'title': 'Lab Attendance', 'description': 'Lab attendance mandatory.'},
-    ],
-  };
+  List<NotificationModel> notifications = [];
+  List<NotificationModel> selectedModuleNotifcations = [];
 
-  String selectedModule = 'CMPG321';
+  Module? selectedModule;
 
-  void _onModuleSelected(String module) {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getModules();
+    getNotifications();
+  }
+
+  void getModules() async {
+    ModuleProvider moduleProvider = context.read<ModuleProvider>();
+    modules = moduleProvider.modules;
+    selectedModule = modules[0];
+  }
+
+  void getNotifications() async {
+    NotificationProvider notificationProvider =
+        context.read<NotificationProvider>();
+    notifications = notificationProvider.notifications;
+  }
+
+  void _onModuleSelected(Module module) {
     setState(() {
       selectedModule = module;
     });
@@ -51,7 +56,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
         scrollDirection: Axis.horizontal,
         itemCount: modules.length,
         itemBuilder: (context, index) {
-          String module = modules[index];
+          Module module = modules[index];
           return GestureDetector(
             onTap: () => _onModuleSelected(module),
             child: Container(
@@ -67,7 +72,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
               ),
               child: Center(
                 child: Text(
-                  module,
+                  module.moduleCode,
                   style: TextStyle(
                     color:
                         selectedModule == module ? Colors.white : Colors.black,
@@ -82,7 +87,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
-  void _showNotificationDetail(String title, String description) {
+  void _showNotificationDetail(int notificationId, int moduleId, String title,
+      String description) async {
+    NotificationProvider notificationProvider =
+        context.read<NotificationProvider>();
+
+    notificationProvider.markAsRead(moduleId, notificationId, modules);
+
     showGeneralDialog(
       context: context,
       barrierLabel: "Notification",
@@ -151,20 +162,39 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
+  int getModuleNotificationCount() {
+    int notificationCount = 0;
+    selectedModuleNotifcations = [];
+
+    for (var i = 0; i < notifications.length; i++) {
+      if (notifications[i].moduleId == selectedModule?.moduleId) {
+        selectedModuleNotifcations.add(notifications[i]);
+        notificationCount++;
+      }
+    }
+
+    return notificationCount;
+  }
+
   Widget buildNotificationList() {
     return Expanded(
       child: ListView.builder(
-        itemCount: notifications[selectedModule]?.length ?? 0,
+        itemCount: getModuleNotificationCount(),
         itemBuilder: (context, index) {
-          var notification = notifications[selectedModule]![index];
+          NotificationModel notification = selectedModuleNotifcations[index];
+          bool isUnread = notification.readAt == null;
+
           return Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: NotificationTile(
-              title: notification['title']!,
-              description: notification['description']!,
+              title: notification.notificationTitle,
+              description: notification.notificationMessage,
+              isUnread: isUnread,
               onTap: () => _showNotificationDetail(
-                notification['title']!,
-                notification['description']!,
+                notification.notificationId,
+                notification.moduleId,
+                notification.notificationTitle,
+                notification.notificationMessage,
               ),
             ),
           );

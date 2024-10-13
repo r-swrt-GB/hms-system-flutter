@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hms_system_application/models/assignment.dart';
+import 'package:hms_system_application/models/module.dart';
+import 'package:hms_system_application/providers/assignment_provider.dart';
+import 'package:hms_system_application/providers/module_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AssignmentPage extends StatefulWidget {
   const AssignmentPage({super.key});
@@ -11,18 +17,9 @@ class _AssignmentPageState extends State<AssignmentPage> {
   int _selectedModuleIndex = 0;
 
   // List of modules
-  List<String> modules = [
-    "PSY101",
-    "BIO201",
-    "SOC101",
-    "COG301",
-    "PSY202",
-    "ANTH301",
-    "PSY303",
-    "ETH101",
-    "ANTH102"
-  ];
+  List<Module> modules = [];
 
+<<<<<<< HEAD
   // Assignments now have a 'module' field to associate with a specific module
   List<Map<String, String>> assignments = [
     {
@@ -68,13 +65,33 @@ class _AssignmentPageState extends State<AssignmentPage> {
     },
     // (Additional assignments omitted for brevity)
   ];
+=======
+  List<Assignment> assignments = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getModules();
+    getAssignments();
+  }
+
+  void getModules() async {
+    ModuleProvider moduleProvider = context.read<ModuleProvider>();
+    modules = moduleProvider.modules;
+  }
+
+  void getAssignments() async {
+    AssignmentProvider assignmentProvider = context.read<AssignmentProvider>();
+    assignments = assignmentProvider.assignments;
+  }
+>>>>>>> devlopment
 
   @override
   Widget build(BuildContext context) {
     // Filter assignments based on the selected module
-    String selectedModule = modules[_selectedModuleIndex];
-    List<Map<String, String>> filteredAssignments = assignments
-        .where((assignment) => assignment['module'] == selectedModule)
+    Module selectedModule = modules[_selectedModuleIndex];
+    List<Assignment> filteredAssignments = assignments
+        .where((assignment) => assignment.moduleId == selectedModule.moduleId)
         .toList();
 
     return Scaffold(
@@ -111,7 +128,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     ),
                     child: Center(
                       child: Text(
-                        modules[index],
+                        modules[index].moduleCode,
                         style: TextStyle(
                           color: isSelected ? Colors.white : Colors.black,
                         ),
@@ -138,53 +155,65 @@ class _AssignmentPageState extends State<AssignmentPage> {
             ),
           ),
 
-          // Scrollable List of Filtered Assignments
+          // Scrollable List of Filtered Assignments or 'No Assignments' message
           Expanded(
-            child: ListView.builder(
-              itemCount: filteredAssignments.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  margin: EdgeInsets.all(10),
-                  child: Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          filteredAssignments[index]["title"]!,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+            child: filteredAssignments.isNotEmpty
+                ? ListView.builder(
+                    itemCount: filteredAssignments.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: EdgeInsets.all(10),
+                        child: Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                filteredAssignments[index].assignmentTitle!,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                filteredAssignments[index]
+                                    .assignmentDescription!,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                DateFormat('dd/MM/yyyy at HH:mm')
+                                    .format(filteredAssignments[index].dueDate),
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: 5),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         Text(
-                          filteredAssignments[index]["description"]!,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          filteredAssignments[index]["dueDate"]!,
+                          "No assignments 😊",
                           style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade700,
                           ),
                         ),
                       ],
                     ),
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: AssignmentPage(),
-  ));
 }

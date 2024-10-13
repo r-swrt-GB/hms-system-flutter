@@ -8,6 +8,7 @@ import 'package:hms_system_application/pages/splash_screen.dart';
 import 'package:hms_system_application/providers/assignment_provider.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 import 'package:hms_system_application/providers/module_provider.dart';
+import 'package:hms_system_application/providers/notification_provider.dart';
 import 'package:hms_system_application/utils/environment_config.dart';
 
 import 'config.dart';
@@ -38,6 +39,7 @@ Future<void> appStartup(BuildContext context) async {
   var authProvider = GetIt.I.get<AuthProvider>();
   var moduleProvider = GetIt.I.get<ModuleProvider>();
   var assignmentProvider = GetIt.I.get<AssignmentProvider>();
+  var notificationProvider = GetIt.I.get<NotificationProvider>();
 
   await Future.delayed(const Duration(seconds: 2));
 
@@ -59,4 +61,5 @@ Future<void> appStartup(BuildContext context) async {
   //     Navigator.of(context).pushReplacementNamed('/login');
   //   }
   // });
+  await notificationProvider.refreshNotifications(modules);
 }

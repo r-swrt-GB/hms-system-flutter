@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class NotificationTile extends StatelessWidget {
   final String title;
   final String description;
-  final VoidCallback onTap; // Add a callback for handling taps
+  final bool isUnread; // New property to indicate if the notification is unread
+  final VoidCallback onTap;
 
   const NotificationTile({
     super.key,
     required this.title,
     required this.description,
     required this.onTap,
+    this.isUnread = false, // Default to false, meaning the notification is read
   });
 
   @override
@@ -23,24 +25,43 @@ class NotificationTile extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              // Blue circle for unread notifications
+              if (isUnread)
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.only(right: 12),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.blue, // Blue color for unread indicator
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                description,
-                style: const TextStyle(
-                  fontSize: 14,
+              // Title and description
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

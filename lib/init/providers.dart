@@ -4,6 +4,7 @@ import 'package:hms_system_application/framework/providers/provider_registration
 import 'package:hms_system_application/providers/assignment_provider.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 import 'package:hms_system_application/providers/module_provider.dart';
+import 'package:hms_system_application/providers/notification_provider.dart';
 import 'package:hms_system_application/providers/user_provider.dart';
 
 class InitProviders extends ProviderRegistration {
@@ -16,5 +17,6 @@ class InitProviders extends ProviderRegistration {
     registerProvider<UserProvider>(UserProvider());
     registerProvider<ModuleProvider>(ModuleProvider());
     registerProvider<AssignmentProvider>(AssignmentProvider());
+    registerProvider<NotificationProvider>(NotificationProvider());
   }
 }
