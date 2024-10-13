@@ -1,7 +1,11 @@
 import 'package:get_it/get_it.dart';
+import 'package:hms_system_application/app/main.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/pages/Settings_page.dart';
+import 'package:hms_system_application/pages/assigments_page.dart';
 import 'package:hms_system_application/pages/assignment_page.dart';
+import 'package:hms_system_application/pages/central_page.dart';
+import 'package:hms_system_application/pages/notifications_page.dart';
 import 'package:hms_system_application/pages/sign_in_page.dart';
 import 'package:hms_system_application/providers/auth_provider.dart';
 
@@ -16,9 +20,19 @@ registerRoutes(AppRouter router) {
   );
 
   router.materialRoute(
+    '/central',
+    (args) {
+      return const CentralPage();
+    },
+    routeGuard: authGuard,
+  );
+
+  router.materialRoute(
     '/',
     (args) {
-      return const AssignmentPage();
+      return AppMain(
+        router: router,
+      );
     },
     routeGuard: authGuard,
   );
@@ -28,31 +42,31 @@ registerRoutes(AppRouter router) {
     (args) {
       return const SignInPage();
     },
-    // routeGuard: authGuard,
+    routeGuard: authGuard,
   );
 
   router.materialRoute(
     '/assignments',
     (args) {
-      // return const AssignmentsPage();
+      return const AssignmentPage();
     },
-    // routeGuard: authGuard,
+    routeGuard: authGuard,
   );
 
   router.materialRoute(
     '/assignment-details',
     (args) {
-      // return const AssignmentDetailsPage();
+      return const AssigmentsPage();
     },
-    // routeGuard: authGuard,
+    routeGuard: authGuard,
   );
 
   router.materialRoute(
-    '/submission',
+    '/notifications',
     (args) {
-      // return const SubmissionPage();
+      return const NotificationsPage();
     },
-    // routeGuard: authGuard,
+    routeGuard: authGuard,
   );
 
   router.materialRoute(
@@ -60,7 +74,7 @@ registerRoutes(AppRouter router) {
     (args) {
       return const SettingsPage();
     },
-    // routeGuard: authGuard,
+    routeGuard: authGuard,
   );
 
   /*router.materialRoute(

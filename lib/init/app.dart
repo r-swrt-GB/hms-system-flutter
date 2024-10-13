@@ -15,7 +15,7 @@ import 'framework.dart';
 import 'logs.dart';
 
 void initApp({String envFile = '.env'}) async {
-  WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const SplashScreen());
 
@@ -27,18 +27,14 @@ void initApp({String envFile = '.env'}) async {
 
   AppRouter router = initRouter(config);
 
-  await appStartup();
-
   runApp(
     framework.multiProvider(
-      AppMain(
-        router: router,
-      ),
+      AppMain(router: router),
     ),
   );
 }
 
-Future<void> appStartup() async {
+Future<void> appStartup(BuildContext context) async {
   var authProvider = GetIt.I.get<AuthProvider>();
   var moduleProvider = GetIt.I.get<ModuleProvider>();
   var assignmentProvider = GetIt.I.get<AssignmentProvider>();
@@ -55,4 +51,12 @@ Future<void> appStartup() async {
   List<Module> modules = moduleProvider.modules;
 
   await assignmentProvider.refreshAssignments(modules);
+
+  // WidgetsBinding.instance.addPostFrameCallback((_) {
+  //   if (authProvider.isLoggedIn) {
+  //     Navigator.of(context).pushReplacementNamed('/central');
+  //   } else {
+  //     Navigator.of(context).pushReplacementNamed('/login');
+  //   }
+  // });
 }
