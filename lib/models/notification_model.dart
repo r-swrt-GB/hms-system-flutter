@@ -23,6 +23,9 @@ class NotificationModel extends HiveObject {
   @HiveField(5)
   String notificationMessage;
 
+  @HiveField(6)
+  DateTime? readAt;
+
   NotificationModel({
     required this.notificationId,
     required this.userId,
@@ -30,6 +33,7 @@ class NotificationModel extends HiveObject {
     required this.notificationTitle,
     required this.notificationType,
     required this.notificationMessage,
+    required this.readAt,
   });
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +44,7 @@ class NotificationModel extends HiveObject {
       notificationTitle: coalesceString(json['title']),
       notificationType: coalesceString(json['type']),
       notificationMessage: coalesceString(json['message']),
+      readAt: coalesceDate(json['reat_at']),
     );
   }
 

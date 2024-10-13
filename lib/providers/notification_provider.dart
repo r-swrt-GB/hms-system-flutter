@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/models/notification_model.dart';
@@ -26,20 +27,21 @@ class NotificationProvider extends UserProvider {
     return box.getAt(0);
   }
 
-  Future<bool> storeNotificationDetails(NotificationModel? notification) async {
+  Future<bool> markAsRead(
+      int moduleId, int notificationId, List<Module> modules) async {
     try {
       final box = await getNotificationBox();
 
-      if (notification != null) {
-        await box.clear();
-        await box.add(notifications);
+      Response notificationResponse =
+          await api.markNotificationAsRead(moduleId, notificationId);
 
-        notifyListeners();
-        print('Notification saved successfully');
-        return true;
-      } else {
-        return false;
+      if (notificationResponse.statusCode == 200 ||
+          notificationResponse.statusCode == 201) {
+        await refreshNotifications(modules);
       }
+      notifyListeners();
+      print('Notification saved successfully');
+      return true;
     } catch (e) {
       print(e);
       return false;
