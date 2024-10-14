@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/app/main.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
@@ -54,13 +55,26 @@ registerRoutes(AppRouter router) {
     routeGuard: authGuard,
   );
 
+  // router.materialRoute(
+  //   '/assignment-details',
+  //   (args) {
+  //     Assignment assignment = args['assignment'];
+  //     return AssigmentsPage(
+  //       assignment: assignment,
+  //     );
+  //   },
+  //   routeGuard: authGuard,
+  // );
+
   router.materialRoute(
     '/assignment-details',
     (args) {
-      Assignment assignment = args['assignment'];
-      return AssigmentsPage(
-        assignment: assignment,
-      );
+      final assignment = args['assignment'] as Assignment?;
+      if (assignment != null) {
+        return AssigmentsPage(assignment: assignment);
+      } else {
+        return const Center(child: Text('Assignment not available'));
+      }
     },
     routeGuard: authGuard,
   );

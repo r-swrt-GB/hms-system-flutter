@@ -201,13 +201,18 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AssigmentsPage(
-                          assignment: filteredAssignments[index],
-                        ),
-                      ),
+                    Navigator.of(context, rootNavigator: true).pushNamed(
+                      '/assignment-details',
+                      arguments: assignments.first,
                     );
+
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => AssigmentsPage(
+                    //       assignment: filteredAssignments[index],
+                    //     ),
+                    //   ),
+                    // );
                   },
                 );
               },

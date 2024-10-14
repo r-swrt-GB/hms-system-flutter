@@ -93,7 +93,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
       String description) async {
     NotificationProvider notificationProvider =
         context.read<NotificationProvider>();
+
     notificationProvider.markAsRead(moduleId, notificationId, modules);
+
+    setState(() {
+      notifications
+          .firstWhere((notification) =>
+              notification.notificationId == notificationId &&
+              notification.moduleId == moduleId)
+          .readAt = DateTime.now();
+    });
 
     showGeneralDialog(
       context: context,
