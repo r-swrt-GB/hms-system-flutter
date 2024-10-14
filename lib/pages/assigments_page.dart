@@ -33,12 +33,6 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
     _initializeVideoPlayer();
   }
 
-  @override
-  void dispose() {
-    _videoController.dispose();
-    super.dispose();
-  }
-
   void _initializeVideoPlayer() {
     if (widget.submission != null &&
         widget.submission!.files != null &&
@@ -429,7 +423,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                               return DropdownMenuItem<int>(
                                 value: index,
                                 child: Text(
-                                    'Attachment ${index + 1}${_videoFiles[index] != null ? ' (Uploaded)' : ''}'),
+                                    'Attachment ${index + 1}${!_videoFiles.isEmpty && _videoFiles.length != 0 && _videoFiles[index] != null ? ' (Uploaded)' : ''}'),
                               );
                             }),
                             onChanged: (int? newValue) {

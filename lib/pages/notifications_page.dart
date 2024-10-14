@@ -16,31 +16,31 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
   List<Module> modules = [];
-
   List<NotificationModel> notifications = [];
-  List<NotificationModel> selectedModuleNotifcations = [];
-
+  List<NotificationModel> selectedModuleNotifications = [];
   Module? selectedModule;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     getModules();
     getNotifications();
   }
 
   void getModules() async {
     ModuleProvider moduleProvider = context.read<ModuleProvider>();
-    modules = moduleProvider.modules;
-    selectedModule = modules[0];
+    setState(() {
+      modules = moduleProvider.modules;
+      selectedModule = modules.isNotEmpty ? modules[0] : null;
+    });
   }
 
   void getNotifications() async {
     NotificationProvider notificationProvider =
         context.read<NotificationProvider>();
-    notifications = notificationProvider.notifications;
+    setState(() {
+      notifications = notificationProvider.notifications;
+    });
   }
 
   void _onModuleSelected(Module module) {
@@ -91,7 +91,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
       String description) async {
     NotificationProvider notificationProvider =
         context.read<NotificationProvider>();
-
     notificationProvider.markAsRead(moduleId, notificationId, modules);
 
     showGeneralDialog(
@@ -162,43 +161,75 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
-  int getModuleNotificationCount() {
-    int notificationCount = 0;
-    selectedModuleNotifcations = [];
-
-    for (var i = 0; i < notifications.length; i++) {
-      if (notifications[i].moduleId == selectedModule?.moduleId) {
-        selectedModuleNotifcations.add(notifications[i]);
-        notificationCount++;
-      }
-    }
-
-    return notificationCount;
+  void updateSelectedModuleNotifications() {
+    selectedModuleNotifications = notifications
+        .where(
+            (notification) => notification.moduleId == selectedModule?.moduleId)
+        .toList();
   }
 
   Widget buildNotificationList() {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: getModuleNotificationCount(),
-        itemBuilder: (context, index) {
-          NotificationModel notification = selectedModuleNotifcations[index];
-          bool isUnread = notification.readAt == null;
+    updateSelectedModuleNotifications();
 
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: NotificationTile(
-              title: notification.notificationTitle,
-              description: notification.notificationMessage,
-              isUnread: isUnread,
-              onTap: () => _showNotificationDetail(
-                notification.notificationId,
-                notification.moduleId,
-                notification.notificationTitle,
-                notification.notificationMessage,
-              ),
+    if (selectedModuleNotifications.isEmpty) {
+      return Center(
+        child: Text(
+          "No notifications for ${selectedModule?.moduleCode} 📬",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade600,
+          ),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      itemCount: selectedModuleNotifications.length,
+      itemBuilder: (context, index) {
+        NotificationModel notification = selectedModuleNotifications[index];
+        bool isUnread = notification.readAt == null;
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: NotificationTile(
+            title: notification.notificationTitle,
+            description: notification.notificationMessage,
+            isUnread: isUnread,
+            onTap: () => _showNotificationDetail(
+              notification.notificationId,
+              notification.moduleId,
+              notification.notificationTitle,
+              notification.notificationMessage,
             ),
-          );
-        },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildNoModulesMessage() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "No modules assigned 📚",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            "You don't have any modules assigned yet.",
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.shade600,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -210,16 +241,18 @@ class _NotificationsPageState extends State<NotificationsPage> {
       appBar: AppBar(
         title: const Text('Notifications'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            buildModuleSelector(),
-            const SizedBox(height: 16),
-            buildNotificationList(),
-          ],
-        ),
-      ),
+      body: modules.isEmpty
+          ? buildNoModulesMessage()
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  buildModuleSelector(),
+                  const SizedBox(height: 16),
+                  Expanded(child: buildNotificationList()),
+                ],
+              ),
+            ),
     );
   }
 }

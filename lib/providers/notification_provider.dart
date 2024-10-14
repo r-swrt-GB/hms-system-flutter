@@ -9,7 +9,7 @@ import 'package:hms_system_application/providers/user_provider.dart';
 class NotificationProvider extends UserProvider {
   @override
   final String boxName = "notificationsBox";
-  late List<NotificationModel> _notifications;
+  List<NotificationModel> _notifications = [];
 
   List<NotificationModel> get notifications => _notifications;
 

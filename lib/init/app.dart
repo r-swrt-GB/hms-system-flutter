@@ -28,6 +28,8 @@ void initApp({String envFile = '.env'}) async {
 
   AppRouter router = initRouter(config);
 
+  await appStartup();
+
   runApp(
     framework.multiProvider(
       AppMain(router: router),
@@ -35,7 +37,7 @@ void initApp({String envFile = '.env'}) async {
   );
 }
 
-Future<void> appStartup(BuildContext context) async {
+Future<void> appStartup() async {
   var authProvider = GetIt.I.get<AuthProvider>();
   var moduleProvider = GetIt.I.get<ModuleProvider>();
   var assignmentProvider = GetIt.I.get<AssignmentProvider>();

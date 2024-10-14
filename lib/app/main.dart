@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/framework/providers/navigation_provider.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
+import 'package:hms_system_application/providers/auth_provider.dart';
 import 'package:hms_system_application/theme/theme.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,11 @@ class _AppMainState extends State<AppMain> {
     '/notifications',
     '/settings',
   ];
+
+  bool isLoggedIn() {
+    var authProvider = GetIt.I.get<AuthProvider>();
+    return authProvider.isLoggedIn;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,34 +76,36 @@ class _AppMainState extends State<AppMain> {
                 );
               }).toList(),
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.white,
-              selectedItemColor: theme.primaryColor,
-              unselectedItemColor: Colors.grey,
-              currentIndex: _selectedIndex,
-              onTap: (index) {
-                if (_selectedIndex != index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                }
-              },
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.file_copy),
-                  label: 'Assignments',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: 'Notifications',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-              ],
-            ),
+            bottomNavigationBar: isLoggedIn()
+                ? BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    backgroundColor: Colors.white,
+                    selectedItemColor: theme.primaryColor,
+                    unselectedItemColor: Colors.grey,
+                    currentIndex: _selectedIndex,
+                    onTap: (index) {
+                      if (_selectedIndex != index) {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      }
+                    },
+                    items: const <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.file_copy),
+                        label: 'Assignments',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.notifications),
+                        label: 'Notifications',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.settings),
+                        label: 'Settings',
+                      ),
+                    ],
+                  )
+                : null,
           ),
         ),
       ),

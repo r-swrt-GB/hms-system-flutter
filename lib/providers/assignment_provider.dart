@@ -9,7 +9,7 @@ import 'package:hms_system_application/providers/user_provider.dart';
 class AssignmentProvider extends UserProvider {
   @override
   final String boxName = "assignmentsBox";
-  late List<Assignment> _assignments;
+  List<Assignment> _assignments = [];
 
   List<Assignment> get assignments => _assignments;
 

@@ -6,7 +6,7 @@ import 'package:hms_system_application/providers/user_provider.dart';
 class ModuleProvider extends UserProvider {
   @override
   final String boxName = "modulesBox";
-  late List<Module> _modules;
+  List<Module> _modules = [];
 
   List<Module> get modules => _modules;
 
