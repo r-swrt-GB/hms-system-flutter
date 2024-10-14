@@ -43,11 +43,14 @@ class _AssignmentPageState extends State<AssignmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('HMS Systems'),
-        backgroundColor: Colors.grey,
+        title: const Text(
+          'Assignments',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF22489E),
       ),
-      backgroundColor: Colors.grey,
       body: modules.isEmpty
           ? _buildNoModulesMessage()
           : _buildModulesAndAssignments(),
@@ -64,7 +67,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade700,
+              color: Colors.grey[900],
             ),
           ),
           const SizedBox(height: 10),
@@ -72,7 +75,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
             "You don't have any modules assigned yet.",
             style: TextStyle(
               fontSize: 16,
-              color: Colors.grey.shade600,
+              color: Colors.grey[900],
             ),
           ),
         ],
@@ -86,12 +89,15 @@ class _AssignmentPageState extends State<AssignmentPage> {
         .where((assignment) => assignment.moduleId == selectedModule.moduleId)
         .toList();
 
-    return Column(
-      children: [
-        _buildModulesList(),
-        _buildAssignmentsTitle(),
-        _buildAssignmentsList(filteredAssignments),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          _buildModulesList(),
+          _buildAssignmentsTitle(),
+          _buildAssignmentsList(filteredAssignments),
+        ],
+      ),
     );
   }
 
@@ -115,8 +121,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.blue : Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(20),
+                color: isSelected ? const Color(0xFF22489E) : Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
                 child: Text(
@@ -157,6 +163,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   child: Card(
+                    elevation: 0,
                     margin: const EdgeInsets.all(10),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -174,14 +181,19 @@ class _AssignmentPageState extends State<AssignmentPage> {
                           Text(
                             filteredAssignments[index].assignmentDescription,
                             style: const TextStyle(fontSize: 16),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 5),
-                          Text(
-                            DateFormat('dd/MM/yyyy at HH:mm')
-                                .format(filteredAssignments[index].dueDate),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              DateFormat('dd/MM/yyyy at HH:mm')
+                                  .format(filteredAssignments[index].dueDate),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
                         ],
@@ -209,7 +221,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade700,
+                      color: Colors.grey[900],
                     ),
                   ),
                 ],

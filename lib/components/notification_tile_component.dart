@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NotificationTile extends StatelessWidget {
   final String title;
   final String description;
   final bool isUnread; // New property to indicate if the notification is unread
+  final DateTime createdAt;
   final VoidCallback onTap;
 
   const NotificationTile({
@@ -12,6 +14,7 @@ class NotificationTile extends StatelessWidget {
     required this.description,
     required this.onTap,
     this.isUnread = false, // Default to false, meaning the notification is read
+    required this.createdAt,
   });
 
   @override
@@ -19,7 +22,7 @@ class NotificationTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap, // Trigger the pop-out effect
       child: Card(
-        elevation: 4,
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -60,6 +63,16 @@ class NotificationTile extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        DateFormat('dd/MM/yyyy at HH:mm').format(createdAt),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

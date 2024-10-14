@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hms_system_application/components/notification_tile_component.dart';
 import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/models/notification_model.dart';
@@ -66,8 +67,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 vertical: 8.0,
               ),
               decoration: BoxDecoration(
-                color:
-                    selectedModule == module ? Colors.blue : Colors.grey[300],
+                color: selectedModule == module
+                    ? const Color(0xFF22489E)
+                    : Colors.grey[300],
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -178,7 +180,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.grey.shade600,
+            color: Colors.grey[900],
           ),
         ),
       );
@@ -196,6 +198,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
             title: notification.notificationTitle,
             description: notification.notificationMessage,
             isUnread: isUnread,
+            createdAt: notification.createdAt!,
             onTap: () => _showNotificationDetail(
               notification.notificationId,
               notification.moduleId,
@@ -208,25 +211,25 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
-  Widget buildNoModulesMessage() {
+  Widget buildNoNotificationsMessage() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "No modules assigned 📚",
+            "No notifications assigned 📚",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade700,
+              color: Colors.grey[900],
             ),
           ),
           const SizedBox(height: 10),
           Text(
-            "You don't have any modules assigned yet.",
+            "You don't have any notifications assigned yet.",
             style: TextStyle(
               fontSize: 16,
-              color: Colors.grey.shade600,
+              color: Colors.grey[900],
             ),
           ),
         ],
@@ -237,12 +240,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: const Text(
+          'Notifications',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF22489E),
       ),
       body: modules.isEmpty
-          ? buildNoModulesMessage()
+          ? buildNoNotificationsMessage()
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

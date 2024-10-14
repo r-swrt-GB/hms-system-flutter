@@ -153,15 +153,13 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200], // Light grey background
+      backgroundColor: Colors.grey[100], // Light grey background
       appBar: AppBar(
-        title: const Text('Settings'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            navigateToHomePage(context); // Navigates to the home page
-          },
+        title: const Text(
+          'Settings',
+          style: TextStyle(color: Colors.white),
         ),
+        backgroundColor: const Color(0xFF22489E),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0), // Consistent horizontal padding
@@ -214,23 +212,27 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: _isDataChanged ? _saveChanges : null,
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 24.0),
-                      ),
-                      child: const Text('Save'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: ElevatedButton(
                       onPressed: _isDataChanged ? _resetChanges : null,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             vertical: 16.0, horizontal: 24.0),
                       ),
                       child: const Text('Reset'),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _isDataChanged ? _saveChanges : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF22489E),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 24.0),
+                      ),
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ],

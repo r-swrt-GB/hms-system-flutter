@@ -43,8 +43,8 @@ class _CentralPageState extends State<CentralPage> {
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: Colors.blue,
+          backgroundColor: Colors.grey[100],
+          selectedItemColor: const Color(0xFF22489E),
           unselectedItemColor: Colors.grey,
           currentIndex: _selectedIndex,
           onTap: (index) {

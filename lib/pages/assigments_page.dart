@@ -191,7 +191,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
   Widget build(BuildContext context) {
     return Consumer<AssignmentProvider>(
       builder: (context, assignmentProvider, child) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[100],
         appBar: AppBar(
           foregroundColor: Colors.white,
           backgroundColor: const Color(0xFF22489E),
