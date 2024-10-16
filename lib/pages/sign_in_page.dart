@@ -77,10 +77,13 @@ class _SignInPageState extends State<SignInPage> {
     return ElevatedButton(
       onPressed: _signIn,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF22489E),
         minimumSize: const Size(40, 50),
       ),
-      child: const Text('Sign In'),
+      child: const Text(
+        'Sign In',
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 
