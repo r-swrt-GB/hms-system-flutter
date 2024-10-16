@@ -613,6 +613,7 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                                 );
                               },
                             ),
+
                             const Padding(
                               padding: EdgeInsets.symmetric(vertical: 8.0),
                               child: Divider(color: Colors.grey),
@@ -630,10 +631,35 @@ class _AssigmentsPageState extends State<AssigmentsPage> {
                                 },
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
-                              child: Divider(color: Colors.grey),
-                            ),
+                            if (widget.submission != null &&
+                                widget.submission!.comments != null)
+                              Column(
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Divider(color: Colors.grey),
+                                  ),
+                                  Column(
+                                    children: widget.submission!.comments!
+                                        .map((comment) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: Text(
+                                          '${comment['user']['first_name']} ${comment['user']['last_name']}: ${comment['comment_text']}',
+                                          style: const TextStyle(fontSize: 19),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Divider(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       ],

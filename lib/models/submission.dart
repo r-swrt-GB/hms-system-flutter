@@ -20,12 +20,16 @@ class Submission extends HiveObject {
   @HiveField(4)
   List? files;
 
+  @HiveField(5)
+  List? comments;
+
   Submission({
     required this.submissionId,
     required this.submissionDate,
     required this.assignmentId,
     required this.submissionGrade,
     required this.files,
+    required this.comments,
   });
 
   factory Submission.fromJson(Map<String, dynamic> json) {
@@ -35,6 +39,7 @@ class Submission extends HiveObject {
       assignmentId: json['assignment_id'],
       submissionGrade: json['grade'],
       files: json['files'],
+      comments: json['comments'],
     );
   }
 

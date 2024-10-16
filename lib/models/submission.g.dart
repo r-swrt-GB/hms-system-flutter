@@ -22,13 +22,14 @@ class SubmissionAdapter extends TypeAdapter<Submission> {
       assignmentId: fields[2] as int,
       submissionGrade: fields[3] as int?,
       files: (fields[4] as List?)?.cast<dynamic>(),
+      comments: (fields[5] as List?)?.cast<dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Submission obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.submissionId)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class SubmissionAdapter extends TypeAdapter<Submission> {
       ..writeByte(3)
       ..write(obj.submissionGrade)
       ..writeByte(4)
-      ..write(obj.files);
+      ..write(obj.files)
+      ..writeByte(5)
+      ..write(obj.comments);
   }
 
   @override
