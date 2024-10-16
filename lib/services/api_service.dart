@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:hms_system_application/framework/services/http_service.dart';
 import 'package:hms_system_application/models/user.dart';
@@ -72,6 +74,93 @@ class ApiService extends HttpService {
       '/api/v1/modules/$moduleId/notifications/$notificationId/mark-as-read',
       options: postOptions,
     );
+  }
+
+  Future<String?> fetchPresignedUrl(String moduleId, String assigmentId,
+      String fileName, String contentType) async {
+    try {
+      Response response = await httpGet(
+        '/api/v1/modules/$moduleId/assignments/$assigmentId/submissions/create',
+        queryParameters: {
+          'file_name': fileName,
+          'content_type': contentType,
+        },
+        options: postOptions,
+      );
+
+      if (response.statusCode == 200) {
+        return response.data['url'];
+      } else {
+        throw Exception('Failed to fetch pre-signed URL');
+      }
+    } catch (e) {
+      print('Error fetching pre-signed URL: $e');
+      return null;
+    }
+  }
+
+  Future<bool> uploadFileToS3(
+      String presignedUrl, File file, String contentType) async {
+    try {
+      final int fileSize = file.lengthSync();
+      print('Uploading file of size: ${fileSize / (1024 * 1024)} MB');
+
+      // Perform the upload
+      Response response = await Dio().put(
+        presignedUrl,
+        data: file.openRead(),
+        options: Options(
+          headers: {
+            'Content-Type': contentType,
+            'Content-Length': fileSize.toString(),
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print('File uploaded successfully');
+        return true;
+      } else {
+        print('File upload failed with status: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print('Error during file upload: $e');
+      return false;
+    }
+  }
+
+  Future<Response> uploadSubmission(
+      int moduleId, int assignmentId, List filesDetails) async {
+    // Create the form data with files
+    FormData formData = FormData.fromMap({
+      'submission_date': DateTime.now().toIso8601String(),
+      'files': filesDetails,
+    });
+
+    return await httpPost(
+      '/api/v1/modules/$moduleId/assignments/$assignmentId/submissions/create',
+      data: formData,
+      options: postOptions,
+    );
+  }
+
+  Future<List?> getSubmissions(int moduleId, int assigmentId) async {
+    try {
+      Response response = await httpGet(
+        '/api/v1/modules/$moduleId/assignments/$assigmentId/submissions/',
+        options: postOptions,
+      );
+
+      if (response.statusCode == 200) {
+        return response.data['submissions'];
+      } else {
+        throw Exception('Failed to fetch submissions');
+      }
+    } catch (e) {
+      print('Failed to fetch submissions');
+      return null;
+    }
   }
 
   Future<Response> deleteUser(

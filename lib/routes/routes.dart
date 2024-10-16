@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hms_system_application/app/main.dart';
 import 'package:hms_system_application/framework/router/app_router.dart';
 import 'package:hms_system_application/models/assignment.dart';
+import 'package:hms_system_application/models/submission.dart';
 import 'package:hms_system_application/pages/Settings_page.dart';
 import 'package:hms_system_application/pages/assigments_page.dart';
 import 'package:hms_system_application/pages/assignment_page.dart';
@@ -69,9 +70,13 @@ registerRoutes(AppRouter router) {
   router.materialRoute(
     '/assignment-details',
     (args) {
-      final assignment = args['assignment'] as Assignment?;
+      Assignment? assignment = args['assignment'];
+      Submission? submission = args['submission'];
       if (assignment != null) {
-        return AssigmentsPage(assignment: assignment);
+        return AssigmentsPage(
+          assignment: assignment,
+          submission: submission,
+        );
       } else {
         return const Center(child: Text('Assignment not available'));
       }

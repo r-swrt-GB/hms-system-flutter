@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hms_system_application/components/notification_tile_component.dart';
 import 'package:hms_system_application/models/module.dart';
 import 'package:hms_system_application/models/notification_model.dart';

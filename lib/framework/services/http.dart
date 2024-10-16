@@ -19,7 +19,7 @@ class Http {
     this.tokenBox, {
     required this.endPoint,
     this.connectTimeout = 50000,
-    this.receiveTimeout = 3000,
+    this.receiveTimeout = 50000,
     this.authTokenBoxKey = 'token',
     required this.onAuthFailedResponse,
   }) {

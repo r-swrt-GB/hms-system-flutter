@@ -30,10 +30,10 @@ class Submission extends HiveObject {
 
   factory Submission.fromJson(Map<String, dynamic> json) {
     return Submission(
-      submissionId: int.parse(json['id']),
+      submissionId: json['id'],
       submissionDate: coalesceDate(json['submission_date']),
-      assignmentId: int.parse(json['assignment_id']),
-      submissionGrade: int.parse(json['grade']),
+      assignmentId: json['assignment_id'],
+      submissionGrade: json['grade'],
       files: json['files'],
     );
   }

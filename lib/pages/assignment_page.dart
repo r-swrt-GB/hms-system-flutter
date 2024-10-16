@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hms_system_application/models/assignment.dart';
 import 'package:hms_system_application/models/module.dart';
-import 'package:hms_system_application/pages/assigments_page.dart';
+import 'package:hms_system_application/models/submission.dart';
 import 'package:hms_system_application/providers/assignment_provider.dart';
 import 'package:hms_system_application/providers/module_provider.dart';
+import 'package:hms_system_application/providers/submission_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,28 @@ class _AssignmentPageState extends State<AssignmentPage> {
     setState(() {
       assignments = assignmentProvider.assignments;
     });
+  }
+
+  void navigateToAssignment(Assignment assignment) async {
+    SubmissionProvider submissionProvider = context.read<SubmissionProvider>();
+
+    List? submissions = await submissionProvider.getSubmissionsForAssignment(
+        assignment.moduleId, assignment.assignmentId);
+    Submission? submission;
+
+    if (submissions != null && submissions.isNotEmpty) {
+      submission = Submission.fromJson(submissions[0]);
+    }
+
+    if (mounted) {
+      Navigator.of(context, rootNavigator: true).pushNamed(
+        '/assignment-details',
+        arguments: {
+          'assignment': assignment,
+          'submission': submission,
+        },
+      );
+    }
   }
 
   @override
@@ -201,18 +224,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context, rootNavigator: true).pushNamed(
-                      '/assignment-details',
-                      arguments: assignments.first,
-                    );
-
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => AssigmentsPage(
-                    //       assignment: filteredAssignments[index],
-                    //     ),
-                    //   ),
-                    // );
+                    navigateToAssignment(filteredAssignments[index]);
                   },
                 );
               },
